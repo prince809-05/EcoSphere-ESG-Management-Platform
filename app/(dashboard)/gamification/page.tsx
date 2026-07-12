@@ -132,6 +132,14 @@ export default async function GamificationPage() {
     },
   });
 
+  const formattedDepartments = departments.map((d) => ({
+    ...d,
+    envScore: Number(d.envScore),
+    socialScore: Number(d.socialScore),
+    govScore: Number(d.govScore),
+    totalScore: Number(d.totalScore),
+  }));
+
   // 9. Fetch Challenge Categories
   const categories = await prisma.category.findMany({
     where: {
@@ -153,7 +161,7 @@ export default async function GamificationPage() {
       redemptions={redemptions}
       badges={badges}
       leaderboard={leaderboard}
-      departments={departments}
+      departments={formattedDepartments}
       categories={categories}
     />
   );

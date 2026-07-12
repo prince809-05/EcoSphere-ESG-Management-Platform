@@ -87,12 +87,26 @@ export default async function SocialPage() {
     },
   });
 
+  const formattedPending = pendingParticipations.map((p) => ({
+    ...p,
+    employee: {
+      ...p.employee,
+      department: p.employee.department ? {
+        ...p.employee.department,
+        envScore: Number(p.employee.department.envScore),
+        socialScore: Number(p.employee.department.socialScore),
+        govScore: Number(p.employee.department.govScore),
+        totalScore: Number(p.employee.department.totalScore),
+      } : null,
+    },
+  }));
+
   return (
     <SocialClient
       session={session}
       activities={activities}
       myParticipations={myParticipations}
-      pendingParticipations={pendingParticipations}
+      pendingParticipations={formattedPending}
       categories={categories}
     />
   );

@@ -27,6 +27,14 @@ export default async function ReportsPage() {
     },
   });
 
+  const formattedDepartments = departments.map((d) => ({
+    ...d,
+    envScore: Number(d.envScore),
+    socialScore: Number(d.socialScore),
+    govScore: Number(d.govScore),
+    totalScore: Number(d.totalScore),
+  }));
+
   // 2. Fetch users/employees
   const employees = await prisma.user.findMany({
     select: {
@@ -42,7 +50,7 @@ export default async function ReportsPage() {
   return (
     <ReportsClient
       session={session}
-      departments={departments}
+      departments={formattedDepartments}
       employees={employees}
     />
   );

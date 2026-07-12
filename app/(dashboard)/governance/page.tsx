@@ -106,6 +106,36 @@ export default async function GovernancePage() {
     },
   });
 
+  const formattedDepartments = departments.map((d) => ({
+    ...d,
+    envScore: Number(d.envScore),
+    socialScore: Number(d.socialScore),
+    govScore: Number(d.govScore),
+    totalScore: Number(d.totalScore),
+  }));
+
+  const formattedPolicies = policies.map((p) => ({
+    ...p,
+    department: p.department ? {
+      ...p.department,
+      envScore: Number(p.department.envScore),
+      socialScore: Number(p.department.socialScore),
+      govScore: Number(p.department.govScore),
+      totalScore: Number(p.department.totalScore),
+    } : null,
+  }));
+
+  const formattedAudits = audits.map((a) => ({
+    ...a,
+    department: {
+      ...a.department,
+      envScore: Number(a.department.envScore),
+      socialScore: Number(a.department.socialScore),
+      govScore: Number(a.department.govScore),
+      totalScore: Number(a.department.totalScore),
+    },
+  }));
+
   // 6. Fetch users list (for assigning compliance issues)
   const users = await prisma.user.findMany({
     select: {
@@ -121,11 +151,11 @@ export default async function GovernancePage() {
   return (
     <GovernanceClient
       session={session}
-      policies={policies}
+      policies={formattedPolicies}
       myAcknowledgements={myAcknowledgements}
-      audits={audits}
+      audits={formattedAudits}
       complianceIssues={complianceIssues}
-      departments={departments}
+      departments={formattedDepartments}
       users={users}
     />
   );

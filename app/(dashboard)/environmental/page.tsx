@@ -87,6 +87,14 @@ export default async function EnvironmentalPage() {
   });
 
   // Format Decimal types for serialization since Next.js cannot serialize Decimal objects directly!
+  const formattedDepartments = departments.map((d) => ({
+    ...d,
+    envScore: Number(d.envScore),
+    socialScore: Number(d.socialScore),
+    govScore: Number(d.govScore),
+    totalScore: Number(d.totalScore),
+  }));
+
   const formattedTransactions = transactions.map((t) => ({
     ...t,
     quantity: Number(t.quantity),
@@ -114,7 +122,7 @@ export default async function EnvironmentalPage() {
       transactions={formattedTransactions}
       factors={formattedFactors}
       goals={formattedGoals}
-      departments={departments}
+      departments={formattedDepartments}
     />
   );
 }
