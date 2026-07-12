@@ -129,7 +129,7 @@ export default async function DashboardPage() {
         <KpiCard
           title="Environmental Score"
           value={avgEnv}
-          icon={Leaf}
+          iconName="leaf"
           colorClass="text-emerald-400"
           glowClass="bg-emerald-500"
           borderClass="hover:border-emerald-500/30"
@@ -138,7 +138,7 @@ export default async function DashboardPage() {
         <KpiCard
           title="Social Score"
           value={avgSocial}
-          icon={Users}
+          iconName="users"
           colorClass="text-amber-400"
           glowClass="bg-amber-500"
           borderClass="hover:border-amber-500/30"
@@ -147,7 +147,7 @@ export default async function DashboardPage() {
         <KpiCard
           title="Governance Score"
           value={avgGov}
-          icon={Scale}
+          iconName="scale"
           colorClass="text-blue-400"
           glowClass="bg-blue-500"
           borderClass="hover:border-blue-500/30"
@@ -156,7 +156,7 @@ export default async function DashboardPage() {
         <KpiCard
           title="Overall ESG Score"
           value={avgTotal}
-          icon={Award}
+          iconName="award"
           colorClass="text-violet-400"
           glowClass="bg-violet-500"
           borderClass="hover:border-violet-500/30"

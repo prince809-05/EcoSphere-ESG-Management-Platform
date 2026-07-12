@@ -9,7 +9,7 @@ export async function generateAIContent(prompt: string): Promise<string> {
     try {
       return await generateContentGroq(prompt);
     } catch (groqError: any) {
-      console.error('Groq fallback also failed:', groqError.message || groqError);
+      console.warn('Groq fallback also failed:', groqError.message || groqError);
       return 'AI service temporarily unavailable. Please try again later.';
     }
   }

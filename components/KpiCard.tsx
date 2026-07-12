@@ -3,12 +3,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent } from './ui/card';
-import { LucideIcon } from 'lucide-react';
+import { Leaf, Users, Scale, Award } from 'lucide-react';
+
+const iconMap = {
+  leaf: Leaf,
+  users: Users,
+  scale: Scale,
+  award: Award,
+};
 
 interface KpiCardProps {
   title: string;
   value: number;
-  icon: LucideIcon;
+  iconName: 'leaf' | 'users' | 'scale' | 'award';
   colorClass: string;
   glowClass: string;
   borderClass: string;
@@ -18,12 +25,13 @@ interface KpiCardProps {
 export default function KpiCard({
   title,
   value,
-  icon: Icon,
+  iconName,
   colorClass,
   glowClass,
   borderClass,
   description,
 }: KpiCardProps) {
+  const Icon = iconMap[iconName] || Leaf;
   return (
     <motion.div
       whileHover={{ y: -4, scale: 1.01 }}
