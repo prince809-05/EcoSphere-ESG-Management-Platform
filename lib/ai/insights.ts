@@ -13,7 +13,7 @@ let cacheExpiry: number = 0;
 export async function getDashboardInsights(scores: ESGProps): Promise<string[]> {
   const now = Date.now();
   
-  if (cachedInsights && now < cacheExpiry && false) {
+  if (cachedInsights && now < cacheExpiry) {
     return cachedInsights;
   }
 
@@ -38,10 +38,10 @@ Do not include any introductory or concluding text. Focus purely on actionable o
       .slice(0, 3);
 
     // Fallback if formatting was ignored
-    const finalBullets = bullets.length === 3 ? bullets : [
-      `Optimize carbon emissions in Manufacturing to raise the current Environmental Score of ${scores.env.toFixed(1)}.`,
-      `Increase employee participation in CSR activities to boost the Social Score of ${scores.social.toFixed(1)}.`,
-      `Review compliance issues and close open audits to improve the Governance Score of ${scores.gov.toFixed(1)}.`
+    const finalBullets = bullets.length >= 2 ? bullets.slice(0, 3) : [
+      `Environmental score is ${scores.env.toFixed(1)}/100 — focus on reducing Scope 2 electricity emissions and auditing fleet fuel consumption across departments.`,
+      `Social score is ${scores.social.toFixed(1)}/100 — increase employee participation in the 6 active CSR activities and gamification challenges to earn XP rewards.`,
+      `Governance score is ${scores.gov.toFixed(1)}/100 — review all open compliance issues and ensure employees have acknowledged active ESG policies.`
     ];
 
     cachedInsights = finalBullets;
@@ -51,9 +51,9 @@ Do not include any introductory or concluding text. Focus purely on actionable o
   } catch (error) {
     console.error('Failed to generate AI insights:', error);
     return [
-      'Focus on reducing carbon transactions in high-emission departments.',
-      'Promote sustainable challenges like Green Commuting to reward employees.',
-      'Assign clear compliance ownership to prevent overdue audits.'
+      `Environmental score is ${scores.env.toFixed(1)}/100 — focus on reducing Scope 2 electricity emissions and fleet fuel consumption.`,
+      `Social score is ${scores.social.toFixed(1)}/100 — promote active CSR activity participation and gamification challenge completions.`,
+      `Governance score is ${scores.gov.toFixed(1)}/100 — resolve open compliance issues and ensure all policies are acknowledged.`
     ];
   }
 }

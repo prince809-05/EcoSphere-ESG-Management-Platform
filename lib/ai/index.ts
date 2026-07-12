@@ -17,70 +17,76 @@ export async function generateAIContent(prompt: string): Promise<string> {
 
 function generateMockESGResponse(prompt: string): string {
   const lowercase = prompt.toLowerCase();
-  
+
+  // Handle dashboard insights prompt
   if (prompt.includes('Provide exactly 3 concise')) {
-    return `- Optimize carbon emissions in Manufacturing to raise the current Environmental Score.
-- Increase employee participation in CSR activities to boost the Social Score.
-- Review compliance issues and close open audits to improve the Governance Score.`;
+    const envM = prompt.match(/Environmental Score:\s*([0-9.]+)/i);
+    const socM = prompt.match(/Social Score:\s*([0-9.]+)/i);
+    const govM = prompt.match(/Governance Score:\s*([0-9.]+)/i);
+    const env = envM ? parseFloat(envM[1]).toFixed(1) : '75.0';
+    const soc = socM ? parseFloat(socM[1]).toFixed(1) : '80.0';
+    const gov = govM ? parseFloat(govM[1]).toFixed(1) : '82.0';
+    return `- Environmental score is ${env}/100 — focus on reducing Scope 2 electricity emissions and transitioning fleet vehicles to EV alternatives.
+- Social score is ${soc}/100 — increase employee participation in active CSR activities and encourage challenge completions to unlock badges.
+- Governance score is ${gov}/100 — review unresolved compliance issues and ensure all active policies are acknowledged by department employees.`;
   }
-  
-  // Extract scores from the injected context prompt using regex
+
+  // Extract scores injected from the system prompt context
   const envMatch = prompt.match(/- Environmental:\s*([0-9.]+)/i);
   const socialMatch = prompt.match(/- Social:\s*([0-9.]+)/i);
   const govMatch = prompt.match(/- Governance:\s*([0-9.]+)/i);
   const overallMatch = prompt.match(/- Overall:\s*([0-9.]+)/i);
-  
-  const envScore = envMatch ? envMatch[1] : 'N/A';
-  const socialScore = socialMatch ? socialMatch[1] : 'N/A';
-  const govScore = govMatch ? govMatch[1] : 'N/A';
-  const overallScore = overallMatch ? overallMatch[1] : 'N/A';
+  const deptMatch = prompt.match(/Current Department:\s*([^\n(]+)/i);
 
-  if (lowercase.includes('hello') || lowercase.includes('hi ') || lowercase.includes('hey')) {
-    return `Hello! I am EcoSphere AI, your ESG assistant. I am currently running in offline mock demonstration mode. How can I help you today with your department's ESG scores, carbon logs, or compliance policies?`;
-  }
-  
-  if (lowercase.includes('environmental score') || lowercase.includes('e score') || lowercase.includes('carbon footprint')) {
-    return `Based on your current department's data, your **Environmental Score** is **${envScore} / 100**. 
-To improve this score:
-- **Optimize Fleet Routes (Scope 1)**: Consolidate delivery schedules.
-- **Facility Energy Audits (Scope 2)**: Transition to smart LED lighting yielding up to 12% electricity savings.`;
+  const envScore = envMatch ? parseFloat(envMatch[1]).toFixed(1) : null;
+  const socialScore = socialMatch ? parseFloat(socialMatch[1]).toFixed(1) : null;
+  const govScore = govMatch ? parseFloat(govMatch[1]).toFixed(1) : null;
+  const overallScore = overallMatch ? parseFloat(overallMatch[1]).toFixed(1) : null;
+  const deptName = deptMatch ? deptMatch[1].trim() : 'your department';
+
+  if (lowercase.includes('hello') || lowercase.startsWith('hi') || lowercase.includes('hey')) {
+    return `Hello! I'm EcoSphere AI — your ESG copilot. I can see live data for **${deptName}**${overallScore ? ` (Overall Score: ${overallScore}/100)` : ''}. Ask me about carbon emissions, ESG scores, policy compliance, or sustainability strategies!`;
   }
 
-  if (lowercase.includes('social score') || lowercase.includes('s score') || lowercase.includes('community')) {
-    return `Based on your current department's data, your **Social Score** is **${socialScore} / 100**.
-To improve this score:
-- Ensure active participation in local CSR initiatives (like the Annual Forestation Drive).
-- Encourage employees to join Gamification challenges.
-- Log your volunteering hours in the Social tab.`;
+  if (lowercase.includes('environmental score') || (lowercase.includes('environmental') && lowercase.includes('score'))) {
+    return envScore
+      ? `📊 **Environmental Score — ${deptName}: ${envScore} / 100**\n\nTo improve:\n- Audit Scope 2 electricity consumption and transition to renewable energy sources.\n- Optimize fleet routing to cut diesel usage.\n- Ensure all carbon transactions are logged using verified emission factors.`
+      : `I don't have live environmental score data at the moment. Please check the Environmental dashboard tab.`;
   }
 
-  if (lowercase.includes('governance score') || lowercase.includes('g score') || lowercase.includes('policy') || lowercase.includes('audit')) {
-    return `Based on your current department's data, your **Governance Score** is **${govScore} / 100**.
-To improve governance compliance:
-- Ensure all department employees read and acknowledge the active compliance policies.
-- Resolve any outstanding audit findings before their deadline.`;
+  if (lowercase.includes('social score') || (lowercase.includes('social') && lowercase.includes('score'))) {
+    return socialScore
+      ? `📊 **Social Score — ${deptName}: ${socialScore} / 100**\n\nTo improve:\n- Participate in open CSR activities (Forestation Drive, E-Waste Collection).\n- Encourage team members to join Gamification challenges.\n- Track volunteering hours in the Social tab.`
+      : `I don't have live social score data right now. Please check the Social dashboard tab.`;
   }
 
-  if (lowercase.includes('overall') || lowercase.includes('momentum') || lowercase.includes('total')) {
-    return `Your department's **Overall Momentum / Total ESG Score** is currently at **${overallScore} / 100**.
-Keep up the great work! To increase your momentum:
-- Keep emissions below target limits.
-- Clear out any pending compliance issues.
-- Participate in green commuting challenges!`;
+  if (lowercase.includes('governance score') || lowercase.includes('g score') || (lowercase.includes('governance') && lowercase.includes('score'))) {
+    return govScore
+      ? `📊 **Governance Score — ${deptName}: ${govScore} / 100**\n\nTo improve:\n- Resolve all open compliance issues before their due dates.\n- Ensure employees acknowledge active policies.\n- Complete pending audit action items.`
+      : `I don't have live governance score data right now. Please check the Governance dashboard tab.`;
   }
 
-  if (lowercase.includes('challenge') || lowercase.includes('point') || lowercase.includes('reward') || lowercase.includes('badge')) {
-    return `To boost gamification and team engagement:
-- Encourage employees to join active sustainability challenges.
-- Approve completed challenges and CSR participations promptly to distribute XP and points.
-- Refresh the rewards catalog periodically to maintain active employee participation.`;
+  if (lowercase.includes('overall') || lowercase.includes('momentum') || lowercase.includes('total score') || lowercase.includes('esg score')) {
+    return overallScore
+      ? `📊 **Overall ESG Score / Momentum — ${deptName}: ${overallScore} / 100**\n\nBreakdown:\n- Environmental: ${envScore ?? 'N/A'}/100\n- Social: ${socialScore ?? 'N/A'}/100\n- Governance: ${govScore ?? 'N/A'}/100\n\nFastest boost: clear open compliance issues and increase CSR activity participation!`
+      : `I don't have live score data right now. Please check the main dashboard for your current momentum scores.`;
   }
-  
-  return `Thank you for asking. Under offline demonstration parameters, here is a summary of your scores:
-- Environmental: ${envScore}
-- Social: ${socialScore}
-- Governance: ${govScore}
-- Overall: ${overallScore}
 
-I recommend focusing on acknowledging compliance policies and logging carbon transactions to boost your scores further!`;
+  if (lowercase.includes('carbon') || lowercase.includes('emission') || lowercase.includes('co2') || lowercase.includes('reduce')) {
+    return `Data-driven carbon reduction steps:\n- **Scope 1**: Transition ageing diesel fleet vehicles to hybrid or EV alternatives.\n- **Scope 2**: Audit electricity usage and target LED replacements in all work areas.\n- **Scope 3**: Review procurement suppliers for their carbon reduction commitments.`;
+  }
+
+  if (lowercase.includes('policy') || lowercase.includes('compliance') || lowercase.includes('audit')) {
+    return `Governance tips for ${deptName}:\n- Ensure all employees acknowledge the active ESG policies in the Governance tab.\n- Review overdue compliance issues and resolve them before due dates.\n- Ensure audit findings are documented and action items are assigned.`;
+  }
+
+  if (lowercase.includes('challenge') || lowercase.includes('badge') || lowercase.includes('reward') || lowercase.includes('xp') || lowercase.includes('leaderboard')) {
+    return `Gamification tips:\n- Join active sustainability challenges in the Gamification tab to earn XP and badges.\n- EASY challenges like "Monitor & Unplug" can be completed quickly.\n- Approve challenge submissions promptly so employees receive their XP rewards.`;
+  }
+
+  if (lowercase.includes('summary') || lowercase.includes('all score') || lowercase.includes('report')) {
+    return `📋 **${deptName} ESG Summary:**\n- 🌿 Environmental: **${envScore ?? 'N/A'}** / 100\n- 🤝 Social: **${socialScore ?? 'N/A'}** / 100\n- ⚖️ Governance: **${govScore ?? 'N/A'}** / 100\n- 🏆 Overall: **${overallScore ?? 'N/A'}** / 100`;
+  }
+
+  return `Here's a quick snapshot of **${deptName}**:\n- Environmental: **${envScore ?? 'N/A'}**/100\n- Social: **${socialScore ?? 'N/A'}**/100\n- Governance: **${govScore ?? 'N/A'}**/100\n- Overall: **${overallScore ?? 'N/A'}**/100\n\nTry asking: *"What is my environmental score?"*, *"What is my momentum score?"*, or *"How do I improve governance?"*`;
 }

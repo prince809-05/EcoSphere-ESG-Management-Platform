@@ -110,16 +110,16 @@ export default async function DashboardLayout({
           />
           
           <div className="flex items-center gap-3 pl-3 border-l border-slate-200">
-            <div className="hidden sm:flex flex-col items-end text-right">
+            <Link href="/profile" className="hidden sm:flex flex-col items-end text-right hover:opacity-80 transition-opacity">
               <span className="text-xs font-bold text-slate-900 leading-none">{session.name}</span>
               <span className="text-[10px] font-bold text-slate-500 uppercase flex items-center gap-1 mt-0.5">
                 <Shield className="w-3 h-3 text-emerald-500" />
                 {session.role}
               </span>
-            </div>
-            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-50 border border-emerald-200">
+            </Link>
+            <Link href="/profile" className="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 transition-colors">
               <UserIcon className="w-4 h-4 text-emerald-600" />
-            </div>
+            </Link>
             <LogoutButton />
           </div>
         </div>

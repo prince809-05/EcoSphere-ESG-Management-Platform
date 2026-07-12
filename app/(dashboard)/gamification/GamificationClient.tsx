@@ -465,7 +465,11 @@ export default function GamificationClient({
                       <div className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-50 border border-slate-100 text-[10px] text-slate-600">
                         {user.name.slice(0, 2)}
                       </div>
-                      {user.name} {user.id === session.userId && <span className="text-[10px] text-violet-400 font-bold">(You)</span>}
+                      {user.name}{' '}
+                      {user.role === 'ADMIN' && <span className="text-[10px] text-emerald-500 font-bold">👑 Admin</span>}
+                      {user.role === 'MANAGER' && <span className="text-[10px] text-violet-400 font-bold">⚡ Mgr</span>}
+                      {user.role === 'AUDITOR' && <span className="text-[10px] text-amber-400 font-bold">🔍</span>}
+                      {user.id === session.userId && <span className="text-[10px] text-blue-400 font-bold">(You)</span>}
                     </td>
                     <td className="p-4 text-slate-600">{user.department?.name || 'Corporate'}</td>
                     <td className="p-4 text-right text-amber-400 font-bold">{user.totalPoints} pts</td>
