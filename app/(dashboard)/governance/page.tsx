@@ -33,68 +33,27 @@ export default async function GovernancePage() {
   });
   const myAcknowledgements = acknowledgements.map((a) => a.policyId);
 
-  // 3. Fetch Audits based on role
-  let audits;
-  if (session.role === 'ADMIN' || session.role === 'AUDITOR') {
-    audits = await prisma.audit.findMany({
-      include: {
-        department: true,
-        auditor: true,
-      },
-      orderBy: {
-        date: 'desc',
-      },
-    });
-  } else {
-    // Managers/Employees can only see audits related to their own department
-    audits = await prisma.audit.findMany({
-      where: {
-        departmentId: userDeptId || undefined,
-      },
-      include: {
-        department: true,
-        auditor: true,
-      },
-      orderBy: {
-        date: 'desc',
-      },
-    });
-  }
+  // 3. Fetch Audits — ALL users can view all audits (read-only for employees/managers)
+  const audits = await prisma.audit.findMany({
+    include: {
+      department: true,
+      auditor: true,
+    },
+    orderBy: {
+      date: 'desc',
+    },
+  });
 
-  // 4. Fetch Compliance Issues based on role
-  let complianceIssues;
-  if (session.role === 'ADMIN' || session.role === 'AUDITOR') {
-    complianceIssues = await prisma.complianceIssue.findMany({
-      include: {
-        audit: true,
-        owner: true,
-      },
-      orderBy: {
-        dueDate: 'asc',
-      },
-    });
-  } else {
-    // Managers and Employees see issues assigned to them OR those within their department audits
-    complianceIssues = await prisma.complianceIssue.findMany({
-      where: {
-        OR: [
-          { ownerId: session.userId },
-          {
-            audit: {
-              departmentId: userDeptId || undefined,
-            },
-          },
-        ],
-      },
-      include: {
-        audit: true,
-        owner: true,
-      },
-      orderBy: {
-        dueDate: 'asc',
-      },
-    });
-  }
+  // 4. Fetch Compliance Issues — ALL users can view (read-only for employees/managers)
+  const complianceIssues = await prisma.complianceIssue.findMany({
+    include: {
+      audit: true,
+      owner: true,
+    },
+    orderBy: {
+      dueDate: 'asc',
+    },
+  });
 
   // 5. Fetch all Active Departments
   const departments = await prisma.department.findMany({
