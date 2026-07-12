@@ -2,8 +2,10 @@ import React from 'react';
 import { getSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
+import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import NotificationBell from '@/components/NotificationBell';
+import ThemeToggle from '@/components/ThemeToggle';
 import { logoutAction } from '@/actions/auth';
 import ChatWidget from '@/components/ChatWidget';
 import { 
@@ -36,7 +38,7 @@ const navItems: SidebarItem[] = [
   { name: 'Social', href: '/social', icon: Users, color: 'text-amber-500' },
   { name: 'Governance', href: '/governance', icon: Scale, color: 'text-blue-500' },
   { name: 'Gamification', href: '/gamification', icon: Trophy, color: 'text-violet-500' },
-  { name: 'Reports', href: '/reports', icon: FileText, color: 'text-rose-500', roles: ['ADMIN', 'MANAGER', 'AUDITOR'] },
+  { name: 'Reports', href: '/reports', icon: FileText, color: 'text-rose-500' },
   { name: 'Feedback', href: '/feedback', icon: MessageSquarePlus, color: 'text-emerald-500' },
   { name: 'Settings', href: '/settings', icon: Settings, color: 'text-slate-500', roles: ['ADMIN'] },
 ];
@@ -76,13 +78,20 @@ export default async function DashboardLayout({
   });
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans overflow-x-hidden dark:bg-slate-950 dark:text-slate-100">
       {/* 1. Top Navbar Header (Replacing Sidebar) */}
-      <header className="h-16 border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-30 flex items-center justify-between px-4 lg:px-8">
+      <header className="h-20 border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-30 flex items-center justify-between px-5 lg:px-10 dark:border-slate-800 dark:bg-slate-950/85">
         {/* Logo Section */}
-        <Link href="/" className="flex items-center gap-2">
-          <Leaf className="w-6 h-6 text-emerald-500 animate-pulse" />
-          <span className="font-bold text-lg tracking-tight bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent hidden sm:inline-block">
+        <Link href="/" className="flex items-center gap-2 min-w-0">
+          <Image
+            src="/ecosphere-mark.png"
+            alt="EcoSphere AI logo"
+            width={64}
+            height={64}
+            priority
+            className="h-14 w-14 object-contain"
+          />
+          <span className="font-bold text-xl tracking-tight bg-gradient-to-r from-emerald-600 to-blue-700 bg-clip-text text-transparent hidden sm:inline-block">
             EcoSphere AI
           </span>
         </Link>
@@ -95,9 +104,9 @@ export default async function DashboardLayout({
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all text-sm font-medium group whitespace-nowrap"
+                className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all text-base font-medium group whitespace-nowrap"
               >
-                <Icon className={`w-4 h-4 ${item.color} group-hover:scale-110 transition-transform`} />
+                <Icon className={`w-5 h-5 ${item.color} group-hover:scale-110 transition-transform`} />
                 <span className="hidden lg:inline-block">{item.name}</span>
               </Link>
             );
@@ -106,6 +115,7 @@ export default async function DashboardLayout({
 
         {/* User Controls */}
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <NotificationBell 
             initialNotifications={formattedNotifications} 
             userId={session.userId} 
@@ -128,7 +138,7 @@ export default async function DashboardLayout({
       </header>
 
       {/* 2. Main Content Wrapper */}
-      <main className="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto pb-24 md:pb-8">
+      <main className="flex-1 p-6 md:p-8 max-w-[1600px] w-full mx-auto pb-24 md:pb-8">
         {children}
       </main>
 

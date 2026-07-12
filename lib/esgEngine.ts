@@ -19,11 +19,12 @@ export async function recalculateDepartmentScore(departmentId: string) {
       where: { id: 1 },
     });
 
-    const config = (settings?.config as any) || {
-      weights: { env: 0.4, social: 0.3, gov: 0.3 }
+    const config = (settings?.config as any) || {};
+    const weights = {
+      env: Number(config.envWeight ?? config.weights?.env ?? 0.4),
+      social: Number(config.socialWeight ?? config.weights?.social ?? 0.3),
+      gov: Number(config.govWeight ?? config.weights?.gov ?? 0.3),
     };
-    
-    const weights = config.weights || { env: 0.4, social: 0.3, gov: 0.3 };
 
     // 2. ENVIRONMENTAL SCORE
     // Formula: 100 - (Total CO2 emissions in tons * 0.5)

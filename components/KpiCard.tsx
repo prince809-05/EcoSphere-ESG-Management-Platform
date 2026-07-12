@@ -49,22 +49,22 @@ export default function KpiCard({
           'bg-violet-500/80'
         }`} />
         
-        <CardContent className="p-6">
+        <CardContent className="p-7">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold tracking-wider text-slate-500 uppercase">{title}</span>
+            <span className="text-[13px] font-bold tracking-wider text-slate-600 uppercase">{title}</span>
             <div className={`p-2 rounded-xl bg-slate-50/60 border border-slate-100 ${colorClass}`}>
-              <Icon className="w-4 h-4" />
+              <Icon className="w-5 h-5" />
             </div>
           </div>
 
           <div className="mt-4 flex items-baseline gap-1.5">
-            <span className="text-3xl font-extrabold tracking-tight text-slate-900">
+            <span className="text-4xl font-extrabold tracking-tight text-slate-900">
               {value.toFixed(1)}
             </span>
-            <span className="text-[10px] text-slate-500 font-bold">/ 100</span>
+            <span className="text-xs text-slate-500 font-bold">/ 100</span>
           </div>
 
-          <p className="mt-3 text-[10px] leading-relaxed text-slate-600 group-hover:text-slate-700 transition-colors">
+          <p className="mt-4 text-sm leading-relaxed text-slate-700 group-hover:text-slate-800 transition-colors">
             {description}
           </p>
         </CardContent>

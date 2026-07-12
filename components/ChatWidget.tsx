@@ -9,10 +9,23 @@ interface ChatMessage {
   text: string;
 }
 
+function cleanChatText(text: string) {
+  return text
+    .replace(/\*\*/g, '')
+    .replace(/\*/g, '')
+    .trim();
+}
+
+const quickQuestions = [
+  'How do I improve social participation?',
+  'What governance issues need attention?',
+  'What is my environmental score?',
+];
+
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { sender: 'ai', text: "Hello! I am EcoSphere AI, your ESG assistant. Ask me anything about our company's carbon footprint, sustainability policies, or how to improve our ESG scores." },
+    { sender: 'ai', text: "Hello! I am EcoSphere AI, your ESG assistant. Ask me what to improve, which policies or audits need attention, how to boost CSR participation, or what site data explains your ESG performance." },
   ]);
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,11 +37,10 @@ export default function ChatWidget() {
     }
   }, [messages, isOpen]);
 
-  const handleSend = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inputValue.trim() || loading) return;
+  const sendMessage = async (text: string) => {
+    if (!text.trim() || loading) return;
 
-    const userText = inputValue;
+    const userText = text.trim();
     setInputValue('');
     setMessages((prev) => [...prev, { sender: 'user', text: userText }]);
     setLoading(true);
@@ -45,7 +57,7 @@ export default function ChatWidget() {
       }
 
       const data = await response.json();
-      setMessages((prev) => [...prev, { sender: 'ai', text: data.response }]);
+      setMessages((prev) => [...prev, { sender: 'ai', text: cleanChatText(data.response || '') }]);
     } catch (error) {
       console.error(error);
       setMessages((prev) => [
@@ -55,6 +67,11 @@ export default function ChatWidget() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSend = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await sendMessage(inputValue);
   };
 
   return (
@@ -77,10 +94,10 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 25, scale: 0.96 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="absolute bottom-16 right-0 w-80 sm:w-[400px] h-[520px] rounded-2xl border border-slate-200 bg-[#f8fafc] shadow-[0_12px_45px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
+            className="absolute bottom-16 right-0 w-80 sm:w-[430px] h-[560px] rounded-2xl border border-slate-200 bg-[#f8fafc] shadow-[0_12px_45px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden dark:border-slate-800 dark:bg-slate-950"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 bg-[#ffffff] border-b border-slate-100">
+            <div className="flex items-center justify-between px-4 py-3 bg-[#ffffff] border-b border-slate-100 dark:border-slate-800 dark:bg-slate-900">
               <div className="flex items-center gap-2.5">
                 <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
                   <Leaf className="w-4 h-4 text-emerald-400" />
@@ -101,7 +118,7 @@ export default function ChatWidget() {
             </div>
 
             {/* Message Area */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-[#f8fafc]">
+            <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-[#f8fafc] dark:bg-slate-950">
               {messages.map((msg, index) => (
                 <div
                   key={index}
@@ -110,8 +127,8 @@ export default function ChatWidget() {
                   <div
                     className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-xs leading-relaxed whitespace-pre-line ${
                       msg.sender === 'user'
-                        ? 'bg-white border border-slate-200 text-slate-900 rounded-tr-none'
-                        : 'bg-[#f1f5f9] border border-slate-200/80 text-slate-800 rounded-tl-none'
+                        ? 'bg-white border border-slate-200 text-slate-900 rounded-tr-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100'
+                        : 'bg-[#f1f5f9] border border-slate-200/80 text-slate-800 rounded-tl-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100'
                     }`}
                   >
                     {msg.text}
@@ -121,7 +138,7 @@ export default function ChatWidget() {
 
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-[#f1f5f9] border border-slate-200/80 text-slate-600 rounded-2xl rounded-tl-none px-4 py-2.5 text-xs flex items-center gap-2">
+                  <div className="bg-[#f1f5f9] border border-slate-200/80 text-slate-600 rounded-2xl rounded-tl-none px-4 py-2.5 text-xs flex items-center gap-2 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
                     <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-400" />
                     Analyzing ESG context...
                   </div>
@@ -131,13 +148,28 @@ export default function ChatWidget() {
             </div>
 
             {/* Input Form */}
-            <form onSubmit={handleSend} className="p-3 border-t border-slate-100 bg-[#f8fafc] flex gap-2">
+            <div className="border-t border-slate-100 bg-[#f8fafc] px-3 pt-3 dark:border-slate-800 dark:bg-slate-950">
+              <div className="flex flex-wrap gap-2">
+                {quickQuestions.map((question) => (
+                  <button
+                    key={question}
+                    type="button"
+                    onClick={() => sendMessage(question)}
+                    disabled={loading}
+                    className="rounded-full border border-emerald-200 bg-white px-3 py-1.5 text-[11px] font-semibold text-slate-700 transition-all hover:border-emerald-400 hover:text-emerald-700 disabled:opacity-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-emerald-400"
+                  >
+                    {question}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <form onSubmit={handleSend} className="p-3 border-t border-slate-100 bg-[#f8fafc] flex gap-2 dark:border-slate-800 dark:bg-slate-950">
               <input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Ask about carbon reduction suggestions..."
-                className="flex-1 px-3 py-2.5 text-xs rounded-xl border border-slate-200 bg-[#ffffff] text-slate-900 placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-emerald-500/20 transition-all"
+                placeholder="Ask what to improve, review, or act on..."
+                className="flex-1 px-3 py-2.5 text-xs rounded-xl border border-slate-200 bg-[#ffffff] text-slate-900 placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-emerald-500/20 transition-all dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder-slate-400"
               />
               <button
                 type="submit"

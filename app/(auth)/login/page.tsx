@@ -3,9 +3,10 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { loginAction } from '@/actions/auth';
-import { ShieldCheck, Mail, Lock, ArrowRight, Loader2, Leaf } from 'lucide-react';
+import { Mail, Lock, ArrowRight, Loader2 } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -43,9 +44,14 @@ export default function LoginPage() {
         className="relative z-10 w-full max-w-md p-8 mx-4 rounded-2xl border border-slate-200 bg-slate-50 backdrop-blur-xl shadow-2xl"
       >
         <div className="flex flex-col items-center mb-8">
-          <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 mb-3">
-            <Leaf className="w-6 h-6 text-emerald-400 animate-pulse" />
-          </div>
+          <Image
+            src="/ecosphere-mark.png"
+            alt="EcoSphere AI logo"
+            width={240}
+            height={240}
+            priority
+            className="mb-4 h-36 w-36 object-contain"
+          />
           <h1 className="text-2xl font-bold tracking-tight text-slate-900">EcoSphere AI</h1>
           <p className="text-sm text-slate-600 mt-1">Intelligent ESG Management Platform</p>
         </div>
@@ -83,6 +89,12 @@ export default function LoginPage() {
               <label className="text-xs font-semibold uppercase tracking-wider text-slate-600" htmlFor="password">
                 Password
               </label>
+              <button
+                type="button"
+                className="text-[11px] font-semibold text-emerald-500 hover:text-emerald-600 hover:underline transition-all"
+              >
+                Forgot password?
+              </button>
             </div>
             <div className="relative">
               <Lock className="absolute left-3 top-3.5 w-5 h-5 text-slate-500" />

@@ -10,9 +10,20 @@ export default async function FeedbackPage() {
   const session = await getSession();
   if (!session) redirect('/login');
 
-  // Users see their own submissions; admins see ALL
+  // Admins see all feedback. Users see their own submissions plus public positive feedback.
   const feedbacks = await prisma.feedback.findMany({
-    where: session.role === 'ADMIN' ? {} : { userId: session.userId },
+    where: session.role === 'ADMIN'
+      ? {}
+      : {
+          OR: [
+            { userId: session.userId },
+            {
+              category: { in: ['GENERAL', 'FEATURE_REQUEST'] },
+              rating: { gte: 4 },
+              status: { in: ['REVIEWED', 'RESOLVED'] },
+            },
+          ],
+        },
     include: {
       user: { select: { name: true, role: true, department: { select: { name: true } } } },
     },

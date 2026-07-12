@@ -248,8 +248,8 @@ export async function getPolicyAcknowledgementStatus(policyId: string): Promise<
 export async function createAudit(input: unknown): Promise<ApiResponse<any>> {
   try {
     const session = await getSession();
-    if (!session || (session.role !== 'ADMIN' && session.role !== 'AUDITOR')) {
-      return { success: false, error: 'Forbidden: Auditor or Admin credentials required', code: 'AUTH_002' };
+    if (!session) {
+      return { success: false, error: 'Unauthorized', code: 'AUTH_001' };
     }
 
     const data = auditSchema.parse(input);
@@ -729,4 +729,3 @@ export async function resolveComplianceIssueAction(id: string) {
   if (!res.success) return { error: res.error };
   return { success: true };
 }
-

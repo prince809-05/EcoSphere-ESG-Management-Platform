@@ -126,5 +126,47 @@
   }
   html {
     @apply font-sans;
+    font-size: 106.25%;
+  }
+}
+
+@layer components {
+  .dark .bg-white,
+  .dark .bg-white\/30,
+  .dark .bg-white\/60,
+  .dark .bg-white\/80,
+  .dark .bg-white\/95 {
+    background-color: rgb(15 23 42 / 0.92) !important;
+  }
+
+  .dark .bg-slate-50,
+  .dark .bg-slate-50\/25,
+  .dark .bg-slate-50\/60,
+  .dark .bg-slate-50\/80,
+  .dark .bg-slate-100 {
+    background-color: rgb(30 41 59 / 0.82) !important;
+  }
+
+  .dark .border-slate-100,
+  .dark .border-slate-200 {
+    border-color: rgb(51 65 85) !important;
+  }
+
+  .dark .text-slate-900,
+  .dark .text-slate-800 {
+    color: rgb(241 245 249) !important;
+  }
+
+  .dark .text-slate-700,
+  .dark .text-slate-600 {
+    color: rgb(203 213 225) !important;
+  }
+
+  .dark .text-slate-500 {
+    color: rgb(148 163 184) !important;
+  }
+
+  .dark table tr:hover {
+    background-color: rgb(30 41 59 / 0.85) !important;
   }
 }

@@ -40,12 +40,17 @@ export default function SettingsClient({
   const [formLoading, setFormLoading] = useState(false);
 
   // ESG config form states
-  const config = initialSettings?.config || {
-    weights: { env: 0.4, social: 0.3, gov: 0.3 },
-    autoEmissionCalculation: true,
-    requireEvidenceForCSR: true,
-    autoAwardBadges: true,
-    emailNotifications: true,
+  const rawConfig = initialSettings?.config || {};
+  const config = {
+    weights: {
+      env: rawConfig.envWeight ?? rawConfig.weights?.env ?? 0.4,
+      social: rawConfig.socialWeight ?? rawConfig.weights?.social ?? 0.3,
+      gov: rawConfig.govWeight ?? rawConfig.weights?.gov ?? 0.3,
+    },
+    autoEmissionCalculation: rawConfig.autoEmissionCalculation ?? true,
+    requireEvidenceForCSR: rawConfig.requireEvidenceForCSR ?? true,
+    autoAwardBadges: rawConfig.autoAwardBadges ?? true,
+    emailNotifications: rawConfig.emailNotifications ?? true,
   };
 
   const [envWeight, setEnvWeight] = useState(config.weights?.env ?? 0.4);
@@ -73,6 +78,9 @@ export default function SettingsClient({
         social: Number(socialWeight),
         gov: Number(govWeight),
       },
+      envWeight: Number(envWeight),
+      socialWeight: Number(socialWeight),
+      govWeight: Number(govWeight),
       autoEmissionCalculation: autoEmission,
       requireEvidenceForCSR: requireEvidence,
       autoAwardBadges: autoBadges,

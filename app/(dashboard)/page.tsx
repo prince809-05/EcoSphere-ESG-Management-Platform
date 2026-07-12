@@ -5,6 +5,7 @@ import { getDashboardInsights } from '@/lib/ai/insights';
 import KpiCard from '@/components/KpiCard';
 import DashboardCharts from '@/components/DashboardCharts';
 import DashboardInsights from '@/components/DashboardInsights';
+import ESGScoreConfigCard from '@/components/ESGScoreConfigCard';
 import Link from 'next/link';
 import { 
   Leaf, 
@@ -121,6 +122,10 @@ export default async function DashboardPage() {
       activity: true,
     },
   });
+
+  const settings = session?.role === 'ADMIN'
+    ? await prisma.settings.findUnique({ where: { id: 1 } })
+    : null;
 
   return (
     <div className="space-y-8 pb-12 font-sans relative">
@@ -260,6 +265,10 @@ export default async function DashboardPage() {
 
         {/* Quick Actions & Recent Activity Feed */}
         <div className="space-y-6">
+          {session?.role === 'ADMIN' && (
+            <ESGScoreConfigCard initialConfig={settings?.config || {}} />
+          )}
+
           {/* Quick Actions */}
           <div className="p-6 rounded-2xl border border-slate-200 bg-slate-50 backdrop-blur-md">
             <h3 className="text-sm font-semibold tracking-wide uppercase text-slate-600 mb-4">

@@ -15,6 +15,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "EcoSphere AI - Intelligent ESG Platform",
   description: "Intelligent Environmental, Social, and Governance (ESG) Management Platform",
+  icons: {
+    icon: "/ecosphere-mark.png",
+    apple: "/ecosphere-mark.png",
+  },
 };
 
 export default function RootLayout({

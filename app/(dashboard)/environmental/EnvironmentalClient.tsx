@@ -184,7 +184,7 @@ export default function EnvironmentalClient({
         </div>
 
         {/* AI suggestions action button */}
-        {session.departmentId && (
+        {session.departmentId && session.role !== 'EMPLOYEE' && (
           <button
             onClick={handleGetAISuggestions}
             disabled={aiLoading}

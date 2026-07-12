@@ -7,6 +7,7 @@ import { revalidatePath } from 'next/cache';
 import { ApiResponse } from '@/types/api';
 import { esgConfigSchema, departmentSchema, categorySchema } from '@/lib/validators';
 import { DepartmentStatus, CategoryType } from '@prisma/client';
+import { recalculateDepartmentScore } from '@/lib/esgEngine';
 
 const uuidSchema = z.string().uuid('Invalid ID format');
 
@@ -52,6 +53,9 @@ export async function updateESGConfig(input: unknown): Promise<ApiResponse<any>>
       update: { config: data as any },
       create: { id: 1, config: data as any },
     });
+
+    const departments = await prisma.department.findMany({ select: { id: true } });
+    await Promise.all(departments.map((department) => recalculateDepartmentScore(department.id)));
 
     revalidatePath('/');
     revalidatePath('/environmental');
@@ -305,7 +309,17 @@ export async function getSettingsAction() {
 }
 
 export async function updateSettingsAction(config: any) {
-  const res = await updateESGConfig(config);
+  const normalizedConfig = {
+    autoEmissionCalculation: Boolean(config.autoEmissionCalculation),
+    requireEvidenceForCSR: Boolean(config.requireEvidenceForCSR),
+    autoAwardBadges: Boolean(config.autoAwardBadges),
+    emailNotifications: Boolean(config.emailNotifications),
+    envWeight: Number(config.envWeight ?? config.weights?.env ?? 0.4),
+    socialWeight: Number(config.socialWeight ?? config.weights?.social ?? 0.3),
+    govWeight: Number(config.govWeight ?? config.weights?.gov ?? 0.3),
+  };
+
+  const res = await updateESGConfig(normalizedConfig);
   if (!res.success) {
     return { error: res.error };
   }

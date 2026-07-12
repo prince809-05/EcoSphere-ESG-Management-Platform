@@ -143,6 +143,7 @@ export default function GovernanceClient({
 
   const isEmployee = session.role === 'EMPLOYEE';
   const isAuditorOrAdmin = session.role === 'ADMIN' || session.role === 'AUDITOR';
+  const canScheduleAudit = true;
 
   return (
     <div className="space-y-6">
@@ -255,7 +256,7 @@ export default function GovernanceClient({
               <FileSpreadsheet className="w-4.5 h-4.5 text-slate-500" />
               Audits Database
             </CardTitle>
-            {isAuditorOrAdmin && (
+            {canScheduleAudit && (
               <button
                 onClick={() => setAuditModalOpen(true)}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-500 hover:bg-blue-600 text-xs font-semibold text-white transition-all shadow-md shadow-blue-500/10"

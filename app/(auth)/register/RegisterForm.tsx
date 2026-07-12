@@ -3,9 +3,10 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { registerAction } from '@/actions/auth';
-import { Leaf, Mail, Lock, User, Briefcase, ArrowRight, Loader2 } from 'lucide-react';
+import { Mail, Lock, User, Briefcase, ArrowRight, Loader2 } from 'lucide-react';
 
 interface DepartmentSelectOption {
   id: string;
@@ -50,9 +51,14 @@ export default function RegisterForm({ departments }: { departments: DepartmentS
         className="relative z-10 w-full max-w-md p-8 mx-4 rounded-2xl border border-slate-200 bg-slate-50 backdrop-blur-xl shadow-2xl"
       >
         <div className="flex flex-col items-center mb-6">
-          <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 mb-3">
-            <Leaf className="w-6 h-6 text-emerald-400 animate-pulse" />
-          </div>
+          <Image
+            src="/ecosphere-mark.png"
+            alt="EcoSphere AI logo"
+            width={220}
+            height={220}
+            priority
+            className="mb-4 h-32 w-32 object-contain"
+          />
           <h1 className="text-2xl font-bold tracking-tight text-slate-900">Create Account</h1>
           <p className="text-sm text-slate-600 mt-1">Join the EcoSphere ESG Platform</p>
         </div>

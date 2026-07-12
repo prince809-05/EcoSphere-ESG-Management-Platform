@@ -12,11 +12,6 @@ export default async function ReportsPage() {
     redirect('/login');
   }
 
-  // Verify Role (Only ADMIN, AUDITOR, and MANAGER can access reports)
-  if (session.role !== 'ADMIN' && session.role !== 'AUDITOR' && session.role !== 'MANAGER') {
-    redirect('/');
-  }
-
   // 1. Fetch departments
   const departments = await prisma.department.findMany({
     where: {
