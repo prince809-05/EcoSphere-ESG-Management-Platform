@@ -1,0 +1,426 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  EMPLOYEE
+  AUDITOR
+}
+
+enum DepartmentStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum CategoryType {
+  CSR_ACTIVITY
+  CHALLENGE
+}
+
+enum GoalStatus {
+  ACTIVE
+  ACHIEVED
+  EXPIRED
+}
+
+enum CarbonTransactionType {
+  PURCHASE
+  MANUFACTURING
+  EXPENSE
+  FLEET
+}
+
+enum ActivityStatus {
+  DRAFT
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+enum ParticipationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ChallengeDifficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum ChallengeStatus {
+  DRAFT
+  ACTIVE
+  UNDER_REVIEW
+  COMPLETED
+  ARCHIVED
+}
+
+enum RewardStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum PolicyStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+enum AuditStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum ComplianceSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ComplianceStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  OVERDUE
+}
+
+model User {
+  id                     String                   @id @default(uuid())
+  email                  String                   @unique
+  passwordHash           String                   @map("password_hash")
+  name                   String
+  role                   Role                     @default(EMPLOYEE)
+  departmentId           String?                  @map("department_id")
+  department             Department?              @relation("DepartmentEmployees", fields: [departmentId], references: [id], onDelete: Cascade)
+  totalXP                Int                      @default(0) @map("total_xp")
+  totalPoints            Int                      @default(0) @map("total_points")
+  createdAt              DateTime                 @default(now()) @map("created_at")
+  updatedAt              DateTime                 @updatedAt @map("updated_at")
+  managedDepartments     Department[]             @relation("DepartmentHead")
+  participations         EmployeeParticipation[]
+  challengeParticipations ChallengeParticipation[]
+  badges                 EmployeeBadge[]
+  redemptions            RewardRedemption[]
+  policyAcknowledgements PolicyAcknowledgement[]
+  assignedCompliance     ComplianceIssue[]        @relation("ComplianceOwner")
+  audits                 Audit[]                  @relation("Auditor")
+  notifications          Notification[]
+
+  @@index([email])
+  @@map("users")
+}
+
+model Department {
+  id                 String            @id @default(uuid())
+  name               String
+  code               String            @unique
+  headId             String?           @unique @map("head_id")
+  head               User?             @relation("DepartmentHead", fields: [headId], references: [id], onDelete: SetNull)
+  parentDepartmentId String?           @map("parent_department_id")
+  parentDepartment   Department?       @relation("DepartmentHierarchy", fields: [parentDepartmentId], references: [id], onDelete: SetNull)
+  childDepartments   Department[]      @relation("DepartmentHierarchy")
+  employeeCount      Int               @default(0) @map("employee_count")
+  status             DepartmentStatus  @default(ACTIVE)
+  envScore           Decimal           @default(0.00) @map("env_score") @db.Decimal(10, 2)
+  socialScore        Decimal           @default(0.00) @map("social_score") @db.Decimal(10, 2)
+  govScore           Decimal           @default(0.00) @map("gov_score") @db.Decimal(10, 2)
+  totalScore         Decimal           @default(0.00) @map("total_score") @db.Decimal(10, 2)
+  employees          User[]            @relation("DepartmentEmployees")
+  goals              EnvironmentalGoal[]
+  carbonTransactions CarbonTransaction[]
+  policies           ESGBPolicy[]
+  audits             Audit[]
+  scores             DepartmentScore[]
+
+  @@map("departments")
+}
+
+model Category {
+  id             String          @id @default(uuid())
+  name           String
+  type           CategoryType
+  status         String          @default("ACTIVE") // ACTIVE | INACTIVE
+  csrActivities  CSRActivity[]
+  challenges     Challenge[]
+
+  @@map("categories")
+}
+
+model EmissionFactor {
+  id                 String              @id @default(uuid())
+  name               String
+  category           String
+  unit               String
+  factorValue        Decimal             @map("factor_value") @db.Decimal(10, 4)
+  source             String
+  status             String              @default("ACTIVE")
+  carbonTransactions CarbonTransaction[]
+
+  @@map("emission_factors")
+}
+
+model ProductESGProfile {
+  id                 String   @id @default(uuid())
+  productName        String   @map("product_name")
+  carbonFootprint    Decimal  @map("carbon_footprint") @db.Decimal(10, 2)
+  recyclabilityScore Int      @map("recyclability_score")
+  ethicalSourcing    String   @map("ethical_sourcing")
+  status             String   @default("ACTIVE")
+
+  @@map("product_esg_profiles")
+}
+
+model EnvironmentalGoal {
+  id           String      @id @default(uuid())
+  name         String
+  targetCO2    Decimal     @map("target_co2") @db.Decimal(10, 2)
+  currentCO2   Decimal     @default(0.00) @map("current_co2") @db.Decimal(10, 2)
+  departmentId String      @map("department_id")
+  department   Department  @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  deadline     DateTime
+  status       GoalStatus  @default(ACTIVE)
+
+  @@map("environmental_goals")
+}
+
+model CarbonTransaction {
+  id               String                @id @default(uuid())
+  type             CarbonTransactionType
+  quantity         Decimal               @db.Decimal(10, 2)
+  emissionFactorId String                @map("emission_factor_id")
+  emissionFactor   EmissionFactor        @relation(fields: [emissionFactorId], references: [id], onDelete: Restrict)
+  calculatedCO2    Decimal               @map("calculated_co2") @db.Decimal(10, 2)
+  departmentId     String                @map("department_id")
+  department       Department            @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  sourceRecordId   String?               @map("source_record_id")
+  autoCalculated   Boolean               @default(true) @map("auto_calculated")
+  createdAt        DateTime              @default(now()) @map("created_at")
+
+  @@index([departmentId])
+  @@index([createdAt])
+  @@map("carbon_transactions")
+}
+
+model CSRActivity {
+  id             String                  @id @default(uuid())
+  title          String
+  description    String
+  categoryId     String                  @map("category_id")
+  category       Category                @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  pointsReward   Int                     @map("points_reward")
+  xpReward       Int                     @map("xp_reward")
+  deadline       DateTime
+  status         ActivityStatus          @default(DRAFT)
+  participations EmployeeParticipation[]
+
+  @@map("csr_activities")
+}
+
+model EmployeeParticipation {
+  id             String              @id @default(uuid())
+  employeeId     String              @map("employee_id")
+  employee       User                @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  activityId     String              @map("activity_id")
+  activity       CSRActivity         @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  proofUrl       String?             @map("proof_url")
+  approvalStatus ParticipationStatus @default(PENDING) @map("approval_status")
+  pointsEarned   Int                 @default(0) @map("points_earned")
+  completedAt    DateTime?           @map("completed_at")
+  reviewedBy     String?             @map("reviewed_by")
+  reviewedAt     DateTime?           @map("reviewed_at")
+
+  @@index([employeeId])
+  @@map("employee_participations")
+}
+
+model Challenge {
+  id               String                   @id @default(uuid())
+  title            String
+  categoryId       String                   @map("category_id")
+  category         Category                 @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  description      String
+  xpReward         Int                      @map("xp_reward")
+  difficulty       ChallengeDifficulty      @default(MEDIUM)
+  evidenceRequired Boolean                  @default(false) @map("evidence_required")
+  deadline         DateTime
+  status           ChallengeStatus          @default(DRAFT)
+  participations   ChallengeParticipation[]
+
+  @@map("challenges")
+}
+
+model ChallengeParticipation {
+  id             String              @id @default(uuid())
+  employeeId     String              @map("employee_id")
+  employee       User                @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  challengeId    String              @map("challenge_id")
+  challenge      Challenge           @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  progress       Int                 @default(0) // 0 to 100 percentage
+  proofUrl       String?             @map("proof_url")
+  approvalStatus ParticipationStatus @default(PENDING) @map("approval_status")
+  xpAwarded      Int                 @default(0) @map("xp_awarded")
+  completedAt    DateTime?           @map("completed_at")
+
+  @@map("challenge_participations")
+}
+
+model Badge {
+  id          String          @id @default(uuid())
+  name        String
+  description String
+  unlockRule  Json            @map("unlock_rule") // {type: "XP_THRESHOLD" | "CHALLENGE_COUNT", value: number}
+  icon        String
+  createdAt   DateTime        @default(now()) @map("created_at")
+  employees   EmployeeBadge[]
+
+  @@map("badges")
+}
+
+model EmployeeBadge {
+  id          String   @id @default(uuid())
+  employeeId  String   @map("employee_id")
+  employee    User     @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  badgeId     String   @map("badge_id")
+  badge       Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  unlockedAt  DateTime @default(now()) @map("unlocked_at")
+  autoAwarded Boolean  @default(true) @map("auto_awarded")
+
+  @@map("employee_badges")
+}
+
+model Reward {
+  id             String             @id @default(uuid())
+  name           String
+  description    String
+  pointsRequired Int                @map("points_required")
+  stock          Int
+  status         RewardStatus       @default(ACTIVE)
+  redemptions    RewardRedemption[]
+
+  @@map("rewards")
+}
+
+model RewardRedemption {
+  id             String       @id @default(uuid())
+  employeeId     String       @map("employee_id")
+  employee       User         @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  rewardId       String       @map("reward_id")
+  reward         Reward       @relation(fields: [rewardId], references: [id], onDelete: Cascade)
+  pointsDeducted Int          @map("points_deducted")
+  redeemedAt     DateTime     @default(now()) @map("redeemed_at")
+  status         String       @default("PENDING") // PENDING | DELIVERED
+
+  @@map("reward_redemptions")
+}
+
+model ESGBPolicy {
+  id               String                 @id @default(uuid())
+  title            String
+  content          String
+  departmentId     String?                @map("department_id")
+  department       Department?            @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  effectiveDate    DateTime               @default(now()) @map("effective_date")
+  status           PolicyStatus           @default(ACTIVE)
+  acknowledgements PolicyAcknowledgement[]
+
+  @@map("esgb_policies")
+}
+
+model PolicyAcknowledgement {
+  id            String     @id @default(uuid())
+  employeeId    String     @map("employee_id")
+  employee      User       @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  policyId      String     @map("policy_id")
+  policy        ESGBPolicy @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  acknowledgedAt DateTime   @default(now()) @map("acknowledged_at")
+  ipAddress     String?    @map("ip_address")
+
+  @@map("policy_acknowledgements")
+}
+
+model Audit {
+  id               String            @id @default(uuid())
+  title            String
+  departmentId     String            @map("department_id")
+  department       Department        @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  auditorId        String            @map("auditor_id")
+  auditor          User              @relation("Auditor", fields: [auditorId], references: [id], onDelete: Restrict)
+  date             DateTime
+  findings         Json              @default("[]") // list of findings
+  status           AuditStatus       @default(SCHEDULED)
+  complianceIssues ComplianceIssue[]
+
+  @@map("audits")
+}
+
+model ComplianceIssue {
+  id          String             @id @default(uuid())
+  auditId     String             @map("audit_id")
+  audit       Audit              @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  severity    ComplianceSeverity @default(MEDIUM)
+  description String
+  ownerId     String             @map("owner_id")
+  owner       User               @relation("ComplianceOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  dueDate     DateTime           @map("due_date")
+  status      ComplianceStatus   @default(OPEN)
+  createdAt   DateTime           @default(now()) @map("created_at")
+
+  @@index([dueDate])
+  @@map("compliance_issues")
+}
+
+model DepartmentScore {
+  id                 String     @id @default(uuid())
+  departmentId       String     @map("department_id")
+  department         Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  environmentalScore Decimal    @map("environmental_score") @db.Decimal(10, 2)
+  socialScore        Decimal    @map("social_score") @db.Decimal(10, 2)
+  governanceScore    Decimal    @map("governance_score") @db.Decimal(10, 2)
+  totalScore         Decimal    @map("total_score") @db.Decimal(10, 2)
+  calculatedAt       DateTime   @default(now()) @map("calculated_at")
+  period             String     @map("period") // YYYY-MM
+
+  @@index([departmentId, period])
+  @@map("department_scores")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String   // COMPLIANCE | CSR | CHALLENGE | BADGE | POLICY
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  link      String?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("notifications")
+}
+
+model ReportTemplate {
+  id        String   @id @default(uuid())
+  name      String
+  filters   Json
+  createdBy String   @map("created_by")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("report_templates")
+}
+
+model Settings {
+  id     Int  @id @default(1)
+  config Json // stores global variables: weights {env: 0.4, social: 0.3, gov: 0.3}, toggles like autoEmissionCalculation etc.
+
+  @@map("settings")
+}
