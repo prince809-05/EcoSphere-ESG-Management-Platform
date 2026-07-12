@@ -73,7 +73,7 @@ Start the development server:
 npm run dev
 ```
 
-Open "https://eco-sphere-esg-management-platform-hnjjy0a17.vercel.app/login"
+Open "https://eco-sphere-esg-management-platform-r2qveg4x4.vercel.app/"
 
 ## Demo Credentials
 
