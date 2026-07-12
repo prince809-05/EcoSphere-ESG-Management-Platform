@@ -17,7 +17,8 @@ import {
   LogOut, 
   Shield, 
   User as UserIcon,
-  ChevronRight
+  ChevronRight,
+  MessageSquarePlus
 } from 'lucide-react';
 import LogoutButton from '@/components/LogoutButton';
 
@@ -36,6 +37,7 @@ const navItems: SidebarItem[] = [
   { name: 'Governance', href: '/governance', icon: Scale, color: 'text-blue-500' },
   { name: 'Gamification', href: '/gamification', icon: Trophy, color: 'text-violet-500' },
   { name: 'Reports', href: '/reports', icon: FileText, color: 'text-rose-500', roles: ['ADMIN', 'MANAGER', 'AUDITOR'] },
+  { name: 'Feedback', href: '/feedback', icon: MessageSquarePlus, color: 'text-emerald-500' },
   { name: 'Settings', href: '/settings', icon: Settings, color: 'text-slate-500', roles: ['ADMIN'] },
 ];
 

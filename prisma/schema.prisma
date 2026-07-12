@@ -115,6 +115,7 @@ model User {
   assignedCompliance     ComplianceIssue[]        @relation("ComplianceOwner")
   audits                 Audit[]                  @relation("Auditor")
   notifications          Notification[]
+  feedbacks              Feedback[]
 
   @@index([email])
   @@map("users")
@@ -406,6 +407,38 @@ model Notification {
   createdAt DateTime @default(now()) @map("created_at")
 
   @@map("notifications")
+}
+
+enum FeedbackCategory {
+  GENERAL
+  BUG_REPORT
+  FEATURE_REQUEST
+  ESG_DATA
+  UI_UX
+}
+
+enum FeedbackStatus {
+  OPEN
+  REVIEWED
+  RESOLVED
+}
+
+model Feedback {
+  id         String           @id @default(uuid())
+  userId     String           @map("user_id")
+  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category   FeedbackCategory @default(GENERAL)
+  subject    String
+  message    String
+  rating     Int              @default(0) // 1-5 star rating
+  status     FeedbackStatus   @default(OPEN)
+  adminNote  String?          @map("admin_note")
+  createdAt  DateTime         @default(now()) @map("created_at")
+  updatedAt  DateTime         @updatedAt @map("updated_at")
+
+  @@index([userId])
+  @@index([status])
+  @@map("feedbacks")
 }
 
 model ReportTemplate {

@@ -9,6 +9,7 @@ async function main() {
   // 1. Delete all existing data
   await prisma.settings.deleteMany({});
   await prisma.notification.deleteMany({});
+  await prisma.feedback.deleteMany({});
   await prisma.policyAcknowledgement.deleteMany({});
   await prisma.eSGBPolicy.deleteMany({});
   await prisma.complianceIssue.deleteMany({});
@@ -139,18 +140,40 @@ async function main() {
   // 9. Create Carbon Transactions (Rich data)
   await prisma.carbonTransaction.createMany({
     data: [
+      // Manufacturing (MFG) — 8 logs
       { type: CarbonTransactionType.MANUFACTURING, quantity: 10000, emissionFactorId: efElectricity.id, calculatedCO2: 8.50, departmentId: deptMfg.id, autoCalculated: true, createdAt: new Date('2026-01-10') },
       { type: CarbonTransactionType.PURCHASE, quantity: 30000, emissionFactorId: efRawMaterial.id, calculatedCO2: 45.00, departmentId: deptMfg.id, autoCalculated: true, createdAt: new Date('2026-02-15') },
-      { type: CarbonTransactionType.MANUFACTURING, quantity: 4700, emissionFactorId: efNaturalGas.id, calculatedCO2: 9.45, departmentId: deptMfg.id, autoCalculated: true, createdAt: new Date('2026-05-18') },
-      { type: CarbonTransactionType.FLEET, quantity: 6716, emissionFactorId: efDiesel.id, calculatedCO2: 18.00, departmentId: deptLog.id, autoCalculated: true, createdAt: new Date('2026-03-05') },
-      { type: CarbonTransactionType.FLEET, quantity: 3200, emissionFactorId: efDiesel.id, calculatedCO2: 8.58, departmentId: deptLog.id, autoCalculated: true, createdAt: new Date('2026-06-12') },
-      { type: CarbonTransactionType.EXPENSE, quantity: 2470, emissionFactorId: efElectricity.id, calculatedCO2: 2.10, departmentId: deptCorp.id, autoCalculated: true, createdAt: new Date('2026-04-12') },
-      { type: CarbonTransactionType.EXPENSE, quantity: 1200, emissionFactorId: efAirTravel.id, calculatedCO2: 0.31, departmentId: deptCorp.id, autoCalculated: true, createdAt: new Date('2026-05-22') },
-      { type: CarbonTransactionType.EXPENSE, quantity: 3600, emissionFactorId: efElectricity.id, calculatedCO2: 3.06, departmentId: deptRD.id, autoCalculated: true, createdAt: new Date('2026-04-30') },
-      { type: CarbonTransactionType.EXPENSE, quantity: 2800, emissionFactorId: efAirTravel.id, calculatedCO2: 0.71, departmentId: deptRD.id, autoCalculated: true, createdAt: new Date('2026-06-05') },
+      { type: CarbonTransactionType.MANUFACTURING, quantity: 4700, emissionFactorId: efNaturalGas.id, calculatedCO2: 9.45, departmentId: deptMfg.id, autoCalculated: true, createdAt: new Date('2026-03-08') },
+      { type: CarbonTransactionType.PURCHASE, quantity: 12000, emissionFactorId: efRawMaterial.id, calculatedCO2: 18.00, departmentId: deptMfg.id, autoCalculated: true, createdAt: new Date('2026-04-05') },
+      { type: CarbonTransactionType.MANUFACTURING, quantity: 8200, emissionFactorId: efElectricity.id, calculatedCO2: 6.97, departmentId: deptMfg.id, autoCalculated: true, createdAt: new Date('2026-04-22') },
+      { type: CarbonTransactionType.MANUFACTURING, quantity: 6000, emissionFactorId: efNaturalGas.id, calculatedCO2: 12.06, departmentId: deptMfg.id, autoCalculated: true, createdAt: new Date('2026-05-18') },
+      { type: CarbonTransactionType.PURCHASE, quantity: 20000, emissionFactorId: efRawMaterial.id, calculatedCO2: 30.00, departmentId: deptMfg.id, autoCalculated: true, createdAt: new Date('2026-06-10') },
+      { type: CarbonTransactionType.MANUFACTURING, quantity: 5500, emissionFactorId: efElectricity.id, calculatedCO2: 4.68, departmentId: deptMfg.id, autoCalculated: true, createdAt: new Date('2026-07-02') },
+
+      // Logistics (LOG) — 6 logs
+      { type: CarbonTransactionType.FLEET, quantity: 6716, emissionFactorId: efDiesel.id, calculatedCO2: 18.00, departmentId: deptLog.id, autoCalculated: true, createdAt: new Date('2026-01-25') },
+      { type: CarbonTransactionType.FLEET, quantity: 4200, emissionFactorId: efDiesel.id, calculatedCO2: 11.26, departmentId: deptLog.id, autoCalculated: true, createdAt: new Date('2026-02-28') },
+      { type: CarbonTransactionType.FLEET, quantity: 3200, emissionFactorId: efDiesel.id, calculatedCO2: 8.58, departmentId: deptLog.id, autoCalculated: true, createdAt: new Date('2026-04-14') },
+      { type: CarbonTransactionType.FLEET, quantity: 5100, emissionFactorId: efDiesel.id, calculatedCO2: 13.67, departmentId: deptLog.id, autoCalculated: true, createdAt: new Date('2026-05-03') },
+      { type: CarbonTransactionType.EXPENSE, quantity: 900, emissionFactorId: efAirTravel.id, calculatedCO2: 0.23, departmentId: deptLog.id, autoCalculated: true, createdAt: new Date('2026-06-12') },
+      { type: CarbonTransactionType.FLEET, quantity: 2800, emissionFactorId: efDiesel.id, calculatedCO2: 7.50, departmentId: deptLog.id, autoCalculated: true, createdAt: new Date('2026-07-05') },
+
+      // Corporate Office (CORP) — 5 logs
+      { type: CarbonTransactionType.EXPENSE, quantity: 2470, emissionFactorId: efElectricity.id, calculatedCO2: 2.10, departmentId: deptCorp.id, autoCalculated: true, createdAt: new Date('2026-01-15') },
+      { type: CarbonTransactionType.EXPENSE, quantity: 1900, emissionFactorId: efElectricity.id, calculatedCO2: 1.62, departmentId: deptCorp.id, autoCalculated: true, createdAt: new Date('2026-03-01') },
+      { type: CarbonTransactionType.EXPENSE, quantity: 1200, emissionFactorId: efAirTravel.id, calculatedCO2: 0.31, departmentId: deptCorp.id, autoCalculated: true, createdAt: new Date('2026-04-20') },
+      { type: CarbonTransactionType.EXPENSE, quantity: 2100, emissionFactorId: efElectricity.id, calculatedCO2: 1.79, departmentId: deptCorp.id, autoCalculated: true, createdAt: new Date('2026-05-22') },
+      { type: CarbonTransactionType.EXPENSE, quantity: 800, emissionFactorId: efAirTravel.id, calculatedCO2: 0.20, departmentId: deptCorp.id, autoCalculated: true, createdAt: new Date('2026-06-30') },
+
+      // R&D — 5 logs
+      { type: CarbonTransactionType.EXPENSE, quantity: 3600, emissionFactorId: efElectricity.id, calculatedCO2: 3.06, departmentId: deptRD.id, autoCalculated: true, createdAt: new Date('2026-01-20') },
+      { type: CarbonTransactionType.EXPENSE, quantity: 2500, emissionFactorId: efElectricity.id, calculatedCO2: 2.13, departmentId: deptRD.id, autoCalculated: true, createdAt: new Date('2026-03-15') },
+      { type: CarbonTransactionType.EXPENSE, quantity: 2800, emissionFactorId: efAirTravel.id, calculatedCO2: 0.71, departmentId: deptRD.id, autoCalculated: true, createdAt: new Date('2026-04-30') },
+      { type: CarbonTransactionType.EXPENSE, quantity: 1800, emissionFactorId: efNaturalGas.id, calculatedCO2: 3.62, departmentId: deptRD.id, autoCalculated: true, createdAt: new Date('2026-05-25') },
+      { type: CarbonTransactionType.EXPENSE, quantity: 1500, emissionFactorId: efAirTravel.id, calculatedCO2: 0.38, departmentId: deptRD.id, autoCalculated: true, createdAt: new Date('2026-07-01') },
     ]
   });
-  console.log('Created carbon transactions');
+  console.log('Created 24 carbon transactions');
 
   // 10. Create CSR Activities (Rich)
   const activity1 = await prisma.cSRActivity.create({ data: { title: 'Annual Forestation Drive', description: 'Help plant 1000 saplings in the green belt to restore biodiversity in the local watershed area.', categoryId: catEcoCSR.id, pointsReward: 150, xpReward: 200, deadline: new Date('2026-08-15'), status: ActivityStatus.ACTIVE } });
@@ -322,6 +345,18 @@ async function main() {
     ]
   });
   console.log('Created notifications');
+
+  // 19. Create Sample Feedback (for demo)
+  await prisma.feedback.createMany({
+    data: [
+      { userId: emp4.id, category: 'GENERAL', subject: 'Great platform overall!', message: 'EcoSphere AI is really helping our team stay on track with ESG goals. The dashboard is super clear and the challenges are motivating!', rating: 5, status: 'REVIEWED', adminNote: 'Thank you for the kind feedback, Chloe! We\'re glad the platform is making a difference.' },
+      { userId: emp1.id, category: 'FEATURE_REQUEST', subject: 'Add department comparison chart', message: 'It would be really helpful to have a side-by-side chart comparing all departments\' ESG scores in real time on the main dashboard.', rating: 4, status: 'OPEN' },
+      { userId: emp3.id, category: 'BUG_REPORT', subject: 'Carbon log date filter not working', message: 'When I filter carbon transactions by date range on the Environmental page, it sometimes doesn\'t reset properly when I clear the filter.', rating: 3, status: 'OPEN' },
+      { userId: emp6.id, category: 'ESG_DATA', subject: 'Missing R&D emission factors', message: 'The R&D department does not have specific emission factors for lab chemical waste. Could we add those so our logs are more accurate?', rating: 4, status: 'RESOLVED', adminNote: 'Great point! We\'ve added lab chemical emission factors in the Environmental > Emission Factors section.' },
+      { userId: mfgManager.id, category: 'UI_UX', subject: 'Approval queue could be faster', message: 'The CSR activity approval queue works well but it would be great to bulk-approve multiple entries at once instead of one at a time.', rating: 3, status: 'OPEN' },
+    ]
+  });
+  console.log('Created sample feedback entries');
 
   console.log('\n✅ Database seeding completed successfully!');
   console.log('\n📋 Login Credentials (all passwords: password123):');
