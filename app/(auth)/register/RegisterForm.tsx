@@ -37,7 +37,7 @@ export default function RegisterForm({ departments }: { departments: DepartmentS
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-slate-950 overflow-hidden font-sans py-12">
+    <div className="relative min-h-screen flex items-center justify-center bg-slate-50 overflow-hidden font-sans py-12">
       {/* Decorative background glows */}
       <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-emerald-500/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-blue-500/10 blur-[120px] pointer-events-none" />
@@ -47,14 +47,14 @@ export default function RegisterForm({ departments }: { departments: DepartmentS
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="relative z-10 w-full max-w-md p-8 mx-4 rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-xl shadow-2xl"
+        className="relative z-10 w-full max-w-md p-8 mx-4 rounded-2xl border border-slate-200 bg-slate-50 backdrop-blur-xl shadow-2xl"
       >
         <div className="flex flex-col items-center mb-6">
           <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 mb-3">
             <Leaf className="w-6 h-6 text-emerald-400 animate-pulse" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-white">Create Account</h1>
-          <p className="text-sm text-slate-400 mt-1">Join the EcoSphere ESG Platform</p>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Create Account</h1>
+          <p className="text-sm text-slate-600 mt-1">Join the EcoSphere ESG Platform</p>
         </div>
 
         {error && (
@@ -69,7 +69,7 @@ export default function RegisterForm({ departments }: { departments: DepartmentS
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400" htmlFor="name">
+            <label className="text-xs font-semibold uppercase tracking-wider text-slate-600" htmlFor="name">
               Full Name
             </label>
             <div className="relative">
@@ -79,14 +79,14 @@ export default function RegisterForm({ departments }: { departments: DepartmentS
                 name="name"
                 type="text"
                 required
-                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all text-sm"
+                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all text-sm"
                 placeholder="John Doe"
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400" htmlFor="email">
+            <label className="text-xs font-semibold uppercase tracking-wider text-slate-600" htmlFor="email">
               Email Address
             </label>
             <div className="relative">
@@ -96,14 +96,14 @@ export default function RegisterForm({ departments }: { departments: DepartmentS
                 name="email"
                 type="email"
                 required
-                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all text-sm"
+                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all text-sm"
                 placeholder="name@company.com"
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400" htmlFor="password">
+            <label className="text-xs font-semibold uppercase tracking-wider text-slate-600" htmlFor="password">
               Password
             </label>
             <div className="relative">
@@ -113,7 +113,7 @@ export default function RegisterForm({ departments }: { departments: DepartmentS
                 name="password"
                 type="password"
                 required
-                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all text-sm"
+                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all text-sm"
                 placeholder="••••••••"
               />
             </div>
@@ -121,7 +121,7 @@ export default function RegisterForm({ departments }: { departments: DepartmentS
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400" htmlFor="role">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-600" htmlFor="role">
                 Role
               </label>
               <div className="relative">
@@ -131,7 +131,7 @@ export default function RegisterForm({ departments }: { departments: DepartmentS
                   name="role"
                   value={selectedRole}
                   onChange={(e) => setSelectedRole(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all text-xs appearance-none"
+                  className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all text-xs appearance-none"
                 >
                   <option value="EMPLOYEE">Employee</option>
                   <option value="MANAGER">Manager</option>
@@ -142,7 +142,7 @@ export default function RegisterForm({ departments }: { departments: DepartmentS
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400" htmlFor="departmentId">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-600" htmlFor="departmentId">
                 Department
               </label>
               <div className="relative">
@@ -150,7 +150,7 @@ export default function RegisterForm({ departments }: { departments: DepartmentS
                 <select
                   id="departmentId"
                   name="departmentId"
-                  className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all text-xs appearance-none"
+                  className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all text-xs appearance-none"
                 >
                   <option value="">None / Corporate</option>
                   {departments.map((dept) => (
@@ -166,7 +166,7 @@ export default function RegisterForm({ departments }: { departments: DepartmentS
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex items-center justify-center gap-2 py-3 px-4 mt-6 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-medium text-sm transition-all shadow-lg shadow-emerald-500/10 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-2 py-3 px-4 mt-6 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-900 font-medium text-sm transition-all shadow-lg shadow-emerald-500/10 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 disabled:opacity-50"
           >
             {loading ? (
               <>

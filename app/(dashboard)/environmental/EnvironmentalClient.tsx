@@ -180,7 +180,7 @@ export default function EnvironmentalClient({
             <Leaf className="w-6 h-6 text-emerald-400" />
             Environmental Module
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Manage carbon footprint accounting, emission factors, and sustainability targets.</p>
+          <p className="text-xs text-slate-600 mt-1">Manage carbon footprint accounting, emission factors, and sustainability targets.</p>
         </div>
 
         {/* AI suggestions action button */}
@@ -208,18 +208,18 @@ export default function EnvironmentalClient({
             <Sparkles className="w-4 h-4 text-emerald-400" />
             AI Carbon Reduction Suggestions
           </h3>
-          <div className="text-xs text-slate-200 leading-relaxed whitespace-pre-line space-y-2">
+          <div className="text-xs text-slate-800 leading-relaxed whitespace-pre-line space-y-2">
             {aiSuggestions}
           </div>
         </div>
       )}
 
       {/* Navigation tabs */}
-      <div className="flex border-b border-slate-800">
+      <div className="flex border-b border-slate-200">
         <button
           onClick={() => setActiveTab('transactions')}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-            activeTab === 'transactions' ? 'border-emerald-500 text-emerald-400' : 'border-transparent text-slate-400 hover:text-white'
+            activeTab === 'transactions' ? 'border-emerald-500 text-emerald-400' : 'border-transparent text-slate-600 hover:text-slate-900'
           }`}
         >
           Carbon Transactions
@@ -227,7 +227,7 @@ export default function EnvironmentalClient({
         <button
           onClick={() => setActiveTab('factors')}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-            activeTab === 'factors' ? 'border-emerald-500 text-emerald-400' : 'border-transparent text-slate-400 hover:text-white'
+            activeTab === 'factors' ? 'border-emerald-500 text-emerald-400' : 'border-transparent text-slate-600 hover:text-slate-900'
           }`}
         >
           Emission Factors
@@ -235,7 +235,7 @@ export default function EnvironmentalClient({
         <button
           onClick={() => setActiveTab('goals')}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-            activeTab === 'goals' ? 'border-emerald-500 text-emerald-400' : 'border-transparent text-slate-400 hover:text-white'
+            activeTab === 'goals' ? 'border-emerald-500 text-emerald-400' : 'border-transparent text-slate-600 hover:text-slate-900'
           }`}
         >
           Environmental Goals
@@ -244,9 +244,9 @@ export default function EnvironmentalClient({
 
       {/* --- 1. CARBON TRANSACTIONS TAB --- */}
       {activeTab === 'transactions' && (
-        <Card className="bg-slate-900 border-slate-800 text-white">
-          <CardHeader className="flex flex-row items-center justify-between pb-4 border-b border-slate-800">
-            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-400 flex items-center gap-2">
+        <Card className="bg-white border-slate-200 text-slate-900">
+          <CardHeader className="flex flex-row items-center justify-between pb-4 border-b border-slate-200">
+            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-600 flex items-center gap-2">
               <Coins className="w-4 h-4 text-slate-500" />
               Transactions Log
             </CardTitle>
@@ -263,7 +263,7 @@ export default function EnvironmentalClient({
           <CardContent className="p-0 overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-slate-950/40 text-slate-400 border-b border-slate-800 font-semibold">
+                <tr className="bg-white/80 text-slate-600 border-b border-slate-200 font-semibold">
                   <th className="p-4">Date</th>
                   <th className="p-4">Department</th>
                   <th className="p-4">Type</th>
@@ -273,18 +273,18 @@ export default function EnvironmentalClient({
                   {canModifyDeptsData && <th className="p-4 text-center">Actions</th>}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-zinc-800/60">
                 {transactions.map((tx) => (
-                  <tr key={tx.id} className="hover:bg-slate-800/25 transition-all text-slate-200">
-                    <td className="p-4">{new Date(tx.createdAt).toLocaleDateString()}</td>
+                  <tr key={tx.id} className="hover:bg-slate-50 transition-all text-slate-800">
+                    <td className="p-4">{new Date(tx.createdAt).toLocaleDateString('en-US')}</td>
                     <td className="p-4 font-medium">{tx.department.name} ({tx.department.code})</td>
                     <td className="p-4">
-                      <span className="px-2 py-0.5 rounded-full bg-slate-950 border border-slate-800 text-[10px] uppercase font-bold text-slate-400">
+                      <span className="px-2 py-0.5 rounded-full bg-slate-50 border border-slate-200 text-[10px] uppercase font-bold text-slate-600">
                         {tx.type}
                       </span>
                     </td>
                     <td className="p-4">{Number(tx.quantity).toLocaleString()} {tx.emissionFactor.unit}</td>
-                    <td className="p-4 text-slate-400">{tx.emissionFactor.name}</td>
+                    <td className="p-4 text-slate-600">{tx.emissionFactor.name}</td>
                     <td className="p-4 text-right font-extrabold text-emerald-400">
                       {Number(tx.calculatedCO2).toFixed(2)} tons
                     </td>
@@ -318,9 +318,9 @@ export default function EnvironmentalClient({
 
       {/* --- 2. EMISSION FACTORS TAB --- */}
       {activeTab === 'factors' && (
-        <Card className="bg-slate-900 border-slate-800 text-white">
-          <CardHeader className="flex flex-row items-center justify-between pb-4 border-b border-slate-800">
-            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-400 flex items-center gap-2">
+        <Card className="bg-white border-slate-200 text-slate-900">
+          <CardHeader className="flex flex-row items-center justify-between pb-4 border-b border-slate-200">
+            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-600 flex items-center gap-2">
               <Settings className="w-4 h-4 text-slate-500" />
               Factors Database
             </CardTitle>
@@ -337,7 +337,7 @@ export default function EnvironmentalClient({
           <CardContent className="p-0 overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-slate-950/40 text-slate-400 border-b border-slate-800 font-semibold">
+                <tr className="bg-white/80 text-slate-600 border-b border-slate-200 font-semibold">
                   <th className="p-4">Name</th>
                   <th className="p-4">Category</th>
                   <th className="p-4">Unit</th>
@@ -346,14 +346,14 @@ export default function EnvironmentalClient({
                   {canModifyFactors && <th className="p-4 text-center">Actions</th>}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-zinc-800/60">
                 {factors.map((ef) => (
-                  <tr key={ef.id} className="hover:bg-slate-800/25 transition-all text-slate-200">
+                  <tr key={ef.id} className="hover:bg-slate-50 transition-all text-slate-800">
                     <td className="p-4 font-semibold">{ef.name}</td>
                     <td className="p-4">{ef.category}</td>
-                    <td className="p-4 text-slate-400">{ef.unit}</td>
+                    <td className="p-4 text-slate-600">{ef.unit}</td>
                     <td className="p-4 text-right font-mono text-emerald-400">{Number(ef.factorValue).toFixed(5)}</td>
-                    <td className="p-4 text-slate-400 truncate max-w-xs">{ef.source}</td>
+                    <td className="p-4 text-slate-600 truncate max-w-xs">{ef.source}</td>
                     {canModifyFactors && (
                       <td className="p-4 text-center">
                         <button
@@ -379,9 +379,9 @@ export default function EnvironmentalClient({
 
       {/* --- 3. ENVIRONMENTAL GOALS TAB --- */}
       {activeTab === 'goals' && (
-        <Card className="bg-slate-900 border-slate-800 text-white">
-          <CardHeader className="flex flex-row items-center justify-between pb-4 border-b border-slate-800">
-            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-400 flex items-center gap-2">
+        <Card className="bg-white border-slate-200 text-slate-900">
+          <CardHeader className="flex flex-row items-center justify-between pb-4 border-b border-slate-200">
+            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-600 flex items-center gap-2">
               <Target className="w-4 h-4 text-slate-500" />
               Sustainability Goals
             </CardTitle>
@@ -400,10 +400,10 @@ export default function EnvironmentalClient({
               {goals.map((goal) => {
                 const ratio = Math.min(100, Math.max(0, (Number(goal.currentCO2) / Number(goal.targetCO2)) * 100));
                 return (
-                  <div key={goal.id} className="p-5 rounded-xl bg-slate-950/40 border border-slate-800 relative group">
+                  <div key={goal.id} className="p-5 rounded-xl bg-white/80 border border-slate-200 relative group">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <h4 className="text-xs font-bold text-white leading-tight">{goal.name}</h4>
+                        <h4 className="text-xs font-bold text-slate-900 leading-tight">{goal.name}</h4>
                         <span className="text-[10px] text-slate-500 mt-1 block">
                           Department: {goal.department.name} ({goal.department.code})
                         </span>
@@ -419,13 +419,13 @@ export default function EnvironmentalClient({
 
                     {/* Progress details */}
                     <div className="mt-4">
-                      <div className="flex justify-between items-baseline text-[10px] text-slate-400 mb-1">
+                      <div className="flex justify-between items-baseline text-[10px] text-slate-600 mb-1">
                         <span>Current: {Number(goal.currentCO2).toFixed(1)} tons</span>
-                        <span className="font-bold text-white">Target: {Number(goal.targetCO2).toFixed(1)} tons</span>
+                        <span className="font-bold text-slate-900">Target: {Number(goal.targetCO2).toFixed(1)} tons</span>
                       </div>
-                      <Progress value={ratio} className="h-1.5 bg-slate-900" />
+                      <Progress value={ratio} className="h-1.5 bg-white" />
                       <div className="flex justify-between items-center text-[9px] text-slate-500 mt-2">
-                        <span>Deadline: {new Date(goal.deadline).toLocaleDateString()}</span>
+                        <span>Deadline: {new Date(goal.deadline).toLocaleDateString('en-US')}</span>
                         <span>{ratio.toFixed(0)}% reached</span>
                       </div>
                     </div>
@@ -458,13 +458,13 @@ export default function EnvironmentalClient({
       {/* 1. Log Carbon Transaction Dialog */}
       {txModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-sans">
-          <div className="w-full max-w-md p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Log Carbon Transaction</h3>
+          <div className="w-full max-w-md p-6 rounded-2xl bg-white border border-slate-200 shadow-2xl">
+            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">Log Carbon Transaction</h3>
             <form onSubmit={handleLogTx} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Transaction Type</label>
-                  <select name="type" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs">
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Transaction Type</label>
+                  <select name="type" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs">
                     <option value="MANUFACTURING">Manufacturing</option>
                     <option value="PURCHASE">Purchase</option>
                     <option value="FLEET">Fleet</option>
@@ -472,8 +472,8 @@ export default function EnvironmentalClient({
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Department</label>
-                  <select name="departmentId" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs">
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Department</label>
+                  <select name="departmentId" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs">
                     {session.role === 'ADMIN' ? (
                       departments.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)
                     ) : (
@@ -484,13 +484,13 @@ export default function EnvironmentalClient({
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Quantity</label>
-                <input name="quantity" type="number" step="any" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. 5000" />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Quantity</label>
+                <input name="quantity" type="number" step="any" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. 5000" />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Emission Factor Link</label>
-                <select name="emissionFactorId" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs">
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Emission Factor Link</label>
+                <select name="emissionFactorId" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs">
                   {factors.map((f) => (
                     <option key={f.id} value={f.id}>{f.name} ({f.factorValue} CO2/{f.unit})</option>
                   ))}
@@ -503,20 +503,20 @@ export default function EnvironmentalClient({
                   id="autoCalculated"
                   checked={autoCalculated}
                   onChange={(e) => setAutoCalculated(e.target.checked)}
-                  className="rounded border-slate-800 bg-slate-950 text-emerald-500 focus:ring-emerald-500"
+                  className="rounded border-slate-200 bg-slate-50 text-emerald-500 focus:ring-emerald-500"
                 />
-                <label htmlFor="autoCalculated" className="text-xs font-medium text-slate-300">Auto-calculate CO2 (Quantity × Factor)</label>
+                <label htmlFor="autoCalculated" className="text-xs font-medium text-slate-700">Auto-calculate CO2 (Quantity × Factor)</label>
               </div>
 
               {!autoCalculated && (
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Manual CO2 Entry (Tons)</label>
-                  <input name="manualCO2" type="number" step="any" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. 12.5" />
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Manual CO2 Entry (Tons)</label>
+                  <input name="manualCO2" type="number" step="any" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. 12.5" />
                 </div>
               )}
 
               <div className="flex justify-end gap-3 mt-6">
-                <button type="button" onClick={() => setTxModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-850 hover:bg-slate-800 text-xs font-semibold text-slate-400 transition-all">Cancel</button>
+                <button type="button" onClick={() => setTxModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-100 hover:bg-slate-100 text-xs font-semibold text-slate-600 transition-all">Cancel</button>
                 <button type="submit" disabled={formLoading} className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-xs font-semibold text-white flex items-center gap-1.5 transition-all">
                   {formLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   Save Transaction
@@ -530,37 +530,37 @@ export default function EnvironmentalClient({
       {/* 2. Add Emission Factor Dialog */}
       {factorModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-sans">
-          <div className="w-full max-w-md p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Add Emission Factor</h3>
+          <div className="w-full max-w-md p-6 rounded-2xl bg-white border border-slate-200 shadow-2xl">
+            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">Add Emission Factor</h3>
             <form onSubmit={handleCreateFactor} className="space-y-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Factor Name</label>
-                <input name="name" type="text" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. Natural Gas combustion" />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Factor Name</label>
+                <input name="name" type="text" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. Natural Gas combustion" />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Category</label>
-                  <input name="category" type="text" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. Heating" />
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Category</label>
+                  <input name="category" type="text" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. Heating" />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Unit</label>
-                  <input name="unit" type="text" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. Therms" />
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Unit</label>
+                  <input name="unit" type="text" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. Therms" />
                 </div>
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Factor Value (CO2 per Unit)</label>
-                <input name="factorValue" type="number" step="any" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. 0.0053" />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Factor Value (CO2 per Unit)</label>
+                <input name="factorValue" type="number" step="any" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. 0.0053" />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Source / Methodology</label>
-                <input name="source" type="text" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. Greenhouse Gas Protocol 2024" />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Source / Methodology</label>
+                <input name="source" type="text" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. Greenhouse Gas Protocol 2024" />
               </div>
 
               <div className="flex justify-end gap-3 mt-6">
-                <button type="button" onClick={() => setFactorModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-850 hover:bg-slate-800 text-xs font-semibold text-slate-400 transition-all">Cancel</button>
+                <button type="button" onClick={() => setFactorModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-100 hover:bg-slate-100 text-xs font-semibold text-slate-600 transition-all">Cancel</button>
                 <button type="submit" disabled={formLoading} className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-xs font-semibold text-white flex items-center gap-1.5 transition-all">
                   {formLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   Save Factor
@@ -574,29 +574,29 @@ export default function EnvironmentalClient({
       {/* 3. Set Goal Dialog */}
       {goalModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-sans">
-          <div className="w-full max-w-md p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Set Environmental Goal</h3>
+          <div className="w-full max-w-md p-6 rounded-2xl bg-white border border-slate-200 shadow-2xl">
+            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">Set Environmental Goal</h3>
             <form onSubmit={handleCreateGoal} className="space-y-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Goal Title</label>
-                <input name="name" type="text" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. Reduce corporate paper waste by 50%" />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Goal Title</label>
+                <input name="name" type="text" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. Reduce corporate paper waste by 50%" />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Target (Tons CO2)</label>
-                  <input name="targetCO2" type="number" step="any" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. 5.0" />
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Target (Tons CO2)</label>
+                  <input name="targetCO2" type="number" step="any" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. 5.0" />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Current (Tons CO2)</label>
-                  <input name="currentCO2" type="number" step="any" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" defaultValue="0" />
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Current (Tons CO2)</label>
+                  <input name="currentCO2" type="number" step="any" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" defaultValue="0" />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Department</label>
-                  <select name="departmentId" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs">
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Department</label>
+                  <select name="departmentId" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs">
                     {session.role === 'ADMIN' ? (
                       departments.map((d) => <option key={d.id} value={d.id}>{d.name}</option>)
                     ) : (
@@ -605,13 +605,13 @@ export default function EnvironmentalClient({
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Deadline</label>
-                  <input name="deadline" type="date" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" />
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Deadline</label>
+                  <input name="deadline" type="date" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" />
                 </div>
               </div>
 
               <div className="flex justify-end gap-3 mt-6">
-                <button type="button" onClick={() => setGoalModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-850 hover:bg-slate-800 text-xs font-semibold text-slate-400 transition-all">Cancel</button>
+                <button type="button" onClick={() => setGoalModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-100 hover:bg-slate-100 text-xs font-semibold text-slate-600 transition-all">Cancel</button>
                 <button type="submit" disabled={formLoading} className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-xs font-semibold text-white flex items-center gap-1.5 transition-all">
                   {formLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   Set Goal

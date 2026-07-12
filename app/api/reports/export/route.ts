@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
 
       doc.setFontSize(10);
       doc.setTextColor(100, 116, 139);
-      doc.text(`Report Type: ${reportType.toUpperCase()} | Date: ${new Date().toLocaleDateString()}`, 14, 28);
+      doc.text(`Report Type: ${reportType.toUpperCase()} | Date: ${new Date().toLocaleDateString('en-US')}`, 14, 28);
       doc.line(14, 32, 196, 32);
 
       let y = 42;

@@ -153,16 +153,16 @@ export default function GovernanceClient({
             <Scale className="w-6 h-6 text-blue-400" />
             Governance Module
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Oversee regulatory compliance audits, raise issues, and distribute ESG policies.</p>
+          <p className="text-xs text-slate-600 mt-1">Oversee regulatory compliance audits, raise issues, and distribute ESG policies.</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-800">
+      <div className="flex border-b border-slate-200">
         <button
           onClick={() => setActiveTab('policies')}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-            activeTab === 'policies' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-400 hover:text-white'
+            activeTab === 'policies' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-600 hover:text-slate-900'
           }`}
         >
           Company Policies
@@ -170,7 +170,7 @@ export default function GovernanceClient({
         <button
           onClick={() => setActiveTab('audits')}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-            activeTab === 'audits' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-400 hover:text-white'
+            activeTab === 'audits' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-600 hover:text-slate-900'
           }`}
         >
           Compliance Audits
@@ -178,7 +178,7 @@ export default function GovernanceClient({
         <button
           onClick={() => setActiveTab('compliance')}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-            activeTab === 'compliance' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-400 hover:text-white'
+            activeTab === 'compliance' ? 'border-blue-500 text-blue-400' : 'border-transparent text-slate-600 hover:text-slate-900'
           }`}
         >
           Compliance Issues
@@ -206,7 +206,7 @@ export default function GovernanceClient({
               const ack = policy.acknowledgements?.find((a: any) => a.employeeId === session.userId);
 
               return (
-                <div key={policy.id} className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md flex flex-col justify-between hover:border-slate-700 transition-all">
+                <div key={policy.id} className="p-5 rounded-2xl bg-slate-50 border border-slate-200 backdrop-blur-md flex flex-col justify-between hover:border-zinc-700 transition-all">
                   <div>
                     <div className="flex justify-between items-start gap-4">
                       <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
@@ -218,14 +218,14 @@ export default function GovernanceClient({
                         {isAcknowledged ? 'Acknowledged' : 'Pending Action'}
                       </Badge>
                     </div>
-                    <h3 className="text-sm font-bold text-white mt-2 leading-snug">{policy.title}</h3>
-                    <p className="text-xs text-slate-300 mt-3 whitespace-pre-line leading-relaxed">
+                    <h3 className="text-sm font-bold text-slate-900 mt-2 leading-snug">{policy.title}</h3>
+                    <p className="text-xs text-slate-700 mt-3 whitespace-pre-line leading-relaxed">
                       {policy.content}
                     </p>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-slate-800/60 flex items-center justify-between text-[10px] text-slate-500 font-medium">
-                    <span>Effective: {new Date(policy.effectiveDate).toLocaleDateString()}</span>
+                  <div className="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between text-[10px] text-slate-500 font-medium">
+                    <span>Effective: {new Date(policy.effectiveDate).toLocaleDateString('en-US')}</span>
                     {isEmployee && !isAcknowledged && (
                       <button
                         onClick={() => handleAcknowledge(policy.id)}
@@ -236,7 +236,7 @@ export default function GovernanceClient({
                     )}
                     {isAcknowledged && ack && (
                       <span className="text-emerald-400 italic">
-                        Acknowledged on {new Date(ack.acknowledgedAt).toLocaleDateString()} (IP: {ack.ipAddress || 'Unknown'})
+                        Acknowledged on {new Date(ack.acknowledgedAt).toLocaleDateString('en-US')} (IP: {ack.ipAddress || 'Unknown'})
                       </span>
                     )}
                   </div>
@@ -249,9 +249,9 @@ export default function GovernanceClient({
 
       {/* --- 2. COMPLIANCE AUDITS TAB --- */}
       {activeTab === 'audits' && (
-        <Card className="bg-slate-900 border-slate-800 text-white">
-          <CardHeader className="flex flex-row items-center justify-between pb-4 border-b border-slate-800">
-            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-400 flex items-center gap-2">
+        <Card className="bg-white border-slate-200 text-slate-900">
+          <CardHeader className="flex flex-row items-center justify-between pb-4 border-b border-slate-200">
+            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-600 flex items-center gap-2">
               <FileSpreadsheet className="w-4.5 h-4.5 text-slate-500" />
               Audits Database
             </CardTitle>
@@ -268,7 +268,7 @@ export default function GovernanceClient({
           <CardContent className="p-0 overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-slate-950/40 text-slate-400 border-b border-slate-800 font-semibold">
+                <tr className="bg-white/80 text-slate-600 border-b border-slate-200 font-semibold">
                   <th className="p-4">Date</th>
                   <th className="p-4">Audit Title</th>
                   <th className="p-4">Audited Department</th>
@@ -277,25 +277,25 @@ export default function GovernanceClient({
                   <th className="p-4 text-center">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-zinc-800/60">
                 {audits.map((audit) => {
                   const findingsList = Array.isArray(audit.findings) ? audit.findings : [];
                   return (
                     <tr
                       key={audit.id}
                       onClick={() => setSelectedAudit(audit)}
-                      className="hover:bg-slate-800/25 cursor-pointer transition-all text-slate-200"
+                      className="hover:bg-slate-50 cursor-pointer transition-all text-slate-800"
                     >
-                      <td className="p-4">{new Date(audit.date).toLocaleDateString()}</td>
+                      <td className="p-4">{new Date(audit.date).toLocaleDateString('en-US')}</td>
                       <td className="p-4 font-semibold text-blue-400 hover:underline">{audit.title}</td>
                       <td className="p-4">{audit.department.name} ({audit.department.code})</td>
-                      <td className="p-4 text-slate-400">{audit.auditor.name}</td>
-                      <td className="p-4 text-center font-bold text-slate-300">{findingsList.length} items</td>
+                      <td className="p-4 text-slate-600">{audit.auditor.name}</td>
+                      <td className="p-4 text-center font-bold text-slate-700">{findingsList.length} items</td>
                       <td className="p-4 text-center">
                         <Badge className={`${
                           audit.status === 'COMPLETED' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
                           audit.status === 'IN_PROGRESS' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
-                          'bg-slate-800 text-slate-400'
+                          'bg-slate-100 text-slate-600'
                         } text-[9px] border font-bold uppercase`}>
                           {audit.status}
                         </Badge>
@@ -311,9 +311,9 @@ export default function GovernanceClient({
 
       {/* --- 3. COMPLIANCE ISSUES TAB --- */}
       {activeTab === 'compliance' && (
-        <Card className="bg-slate-900 border-slate-800 text-white">
-          <CardHeader className="flex flex-row items-center justify-between pb-4 border-b border-slate-800">
-            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-400 flex items-center gap-2">
+        <Card className="bg-white border-slate-200 text-slate-900">
+          <CardHeader className="flex flex-row items-center justify-between pb-4 border-b border-slate-200">
+            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-600 flex items-center gap-2">
               <FileWarning className="w-4.5 h-4.5 text-slate-500" />
               Compliance Log
             </CardTitle>
@@ -330,7 +330,7 @@ export default function GovernanceClient({
           <CardContent className="p-0 overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-slate-950/40 text-slate-400 border-b border-slate-800 font-semibold">
+                <tr className="bg-white/80 text-slate-600 border-b border-slate-200 font-semibold">
                   <th className="p-4">Audit Source</th>
                   <th className="p-4">Description</th>
                   <th className="p-4">Severity</th>
@@ -340,7 +340,7 @@ export default function GovernanceClient({
                   <th className="p-4 text-center">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-zinc-800/60">
                 {complianceIssues.map((issue) => {
                   const isOverdue = issue.status === 'OPEN' && new Date(issue.dueDate) < new Date();
                   const isOwner = issue.ownerId === session.userId;
@@ -348,29 +348,29 @@ export default function GovernanceClient({
                   const canResolve = isOwner || isManager || session.role === 'ADMIN';
 
                   return (
-                    <tr key={issue.id} className="hover:bg-slate-800/25 transition-all text-slate-200">
-                      <td className="p-4 font-semibold text-slate-400">{issue.audit.title}</td>
+                    <tr key={issue.id} className="hover:bg-slate-50 transition-all text-slate-800">
+                      <td className="p-4 font-semibold text-slate-600">{issue.audit.title}</td>
                       <td className="p-4 font-medium">{issue.description}</td>
                       <td className="p-4">
                         <Badge className={`${
                           issue.severity === 'CRITICAL' ? 'bg-rose-500/15 text-rose-400 border-rose-500/30' :
                           issue.severity === 'HIGH' ? 'bg-amber-500/15 text-amber-400 border-amber-500/30' :
                           issue.severity === 'MEDIUM' ? 'bg-blue-500/15 text-blue-400 border-blue-500/30' :
-                          'bg-slate-800 text-slate-400'
+                          'bg-slate-100 text-slate-600'
                         } text-[9px] border font-bold uppercase`}>
                           {issue.severity}
                         </Badge>
                       </td>
                       <td className="p-4 flex items-center gap-2">
-                        <div className="flex items-center justify-center w-5 h-5 rounded-full bg-slate-950 border border-slate-800">
-                          <UserIcon className="w-3 h-3 text-slate-400" />
+                        <div className="flex items-center justify-center w-5 h-5 rounded-full bg-slate-50 border border-slate-200">
+                          <UserIcon className="w-3 h-3 text-slate-600" />
                         </div>
                         {issue.owner.name}
                       </td>
                       <td className="p-4">
-                        <span className={isOverdue ? 'text-rose-400 font-bold flex items-center gap-1' : 'text-slate-400'}>
+                        <span className={isOverdue ? 'text-rose-400 font-bold flex items-center gap-1' : 'text-slate-600'}>
                           {isOverdue && <AlertTriangle className="w-3.5 h-3.5" />}
-                          {new Date(issue.dueDate).toLocaleDateString()}
+                          {new Date(issue.dueDate).toLocaleDateString('en-US')}
                         </span>
                       </td>
                       <td className="p-4 text-center">
@@ -408,18 +408,18 @@ export default function GovernanceClient({
       {/* 1. View Audit Findings Details Modal */}
       {selectedAudit && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-sans">
-          <div className="w-full max-w-lg p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl relative">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-2">Audit Findings Details</h3>
-            <p className="text-xs text-slate-400 mb-4">{selectedAudit.title} - Audited Dept: {selectedAudit.department.name}</p>
+          <div className="w-full max-w-lg p-6 rounded-2xl bg-white border border-slate-200 shadow-2xl relative">
+            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2">Audit Findings Details</h3>
+            <p className="text-xs text-slate-600 mb-4">{selectedAudit.title} - Audited Dept: {selectedAudit.department.name}</p>
             
             <div className="space-y-3 max-h-[240px] overflow-y-auto pr-1">
               {Array.isArray(selectedAudit.findings) && selectedAudit.findings.map((f: any, idx: number) => (
-                <div key={idx} className="p-3 rounded-lg bg-slate-950 border border-slate-850 text-xs">
+                <div key={idx} className="p-3 rounded-lg bg-slate-50 border border-slate-100 text-xs">
                   <div className="flex justify-between items-center mb-1">
                     <span className="font-bold text-blue-400">Finding #{idx + 1}</span>
-                    <Badge className="text-[8px] bg-slate-800 text-slate-400 uppercase">{f.status || 'OPEN'}</Badge>
+                    <Badge className="text-[8px] bg-slate-100 text-slate-600 uppercase">{f.status || 'OPEN'}</Badge>
                   </div>
-                  <p className="text-slate-300 leading-relaxed mt-1">{f.finding || f}</p>
+                  <p className="text-slate-700 leading-relaxed mt-1">{f.finding || f}</p>
                 </div>
               ))}
               {(!selectedAudit.findings || selectedAudit.findings.length === 0) && (
@@ -437,22 +437,22 @@ export default function GovernanceClient({
       {/* 2. Create Policy Modal */}
       {policyModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-sans">
-          <div className="w-full max-w-md p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Publish ESG Policy</h3>
+          <div className="w-full max-w-md p-6 rounded-2xl bg-white border border-slate-200 shadow-2xl">
+            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">Publish ESG Policy</h3>
             <form onSubmit={handleCreatePolicy} className="space-y-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Policy Title</label>
-                <input name="title" type="text" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. Green Procurement Standards" />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Policy Title</label>
+                <input name="title" type="text" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. Green Procurement Standards" />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Policy Content</label>
-                <textarea name="content" required rows={6} className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs resize-none" placeholder="Enter policy details, clauses, and guidelines for staff..." />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Policy Content</label>
+                <textarea name="content" required rows={6} className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs resize-none" placeholder="Enter policy details, clauses, and guidelines for staff..." />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Target Department (Optional)</label>
-                <select name="departmentId" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs">
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Target Department (Optional)</label>
+                <select name="departmentId" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs">
                   <option value="">Company-Wide (All Staff)</option>
                   {departments.map((d) => (
                     <option key={d.id} value={d.id}>{d.name}</option>
@@ -461,7 +461,7 @@ export default function GovernanceClient({
               </div>
 
               <div className="flex justify-end gap-3 mt-6">
-                <button type="button" onClick={() => setPolicyModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-850 hover:bg-slate-800 text-xs font-semibold text-slate-400 transition-all">Cancel</button>
+                <button type="button" onClick={() => setPolicyModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-100 hover:bg-slate-100 text-xs font-semibold text-slate-600 transition-all">Cancel</button>
                 <button type="submit" disabled={formLoading} className="px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-xs font-semibold text-white flex items-center gap-1.5 transition-all">
                   {formLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   Publish Policy
@@ -475,26 +475,26 @@ export default function GovernanceClient({
       {/* 3. Schedule Audit Modal */}
       {auditModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-sans">
-          <div className="w-full max-w-md p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Schedule Audit</h3>
+          <div className="w-full max-w-md p-6 rounded-2xl bg-white border border-slate-200 shadow-2xl">
+            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">Schedule Audit</h3>
             <form onSubmit={handleCreateAudit} className="space-y-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Audit Title</label>
-                <input name="title" type="text" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. Q3 Energy Efficiency Audit" />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Audit Title</label>
+                <input name="title" type="text" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. Q3 Energy Efficiency Audit" />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Department</label>
-                  <select name="departmentId" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs">
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Department</label>
+                  <select name="departmentId" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs">
                     {departments.map((d) => (
                       <option key={d.id} value={d.id}>{d.name}</option>
                     ))}
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Auditor</label>
-                  <select name="auditorId" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs">
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Auditor</label>
+                  <select name="auditorId" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs">
                     {users.filter(u => u.role === 'AUDITOR' || u.role === 'ADMIN').map((u) => (
                       <option key={u.id} value={u.id}>{u.name}</option>
                     ))}
@@ -503,12 +503,12 @@ export default function GovernanceClient({
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Scheduled Date</label>
-                <input name="date" type="date" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Scheduled Date</label>
+                <input name="date" type="date" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" />
               </div>
 
               <div className="flex justify-end gap-3 mt-6">
-                <button type="button" onClick={() => setAuditModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-850 hover:bg-slate-800 text-xs font-semibold text-slate-400 transition-all">Cancel</button>
+                <button type="button" onClick={() => setAuditModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-100 hover:bg-slate-100 text-xs font-semibold text-slate-600 transition-all">Cancel</button>
                 <button type="submit" disabled={formLoading} className="px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-xs font-semibold text-white flex items-center gap-1.5 transition-all">
                   {formLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   Schedule
@@ -522,26 +522,26 @@ export default function GovernanceClient({
       {/* 4. Raise Compliance Issue Modal */}
       {complianceModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-sans">
-          <div className="w-full max-w-md p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Raise Compliance Issue</h3>
+          <div className="w-full max-w-md p-6 rounded-2xl bg-white border border-slate-200 shadow-2xl">
+            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">Raise Compliance Issue</h3>
             <form onSubmit={handleCreateCompliance} className="space-y-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Description / Violation</label>
-                <input name="description" type="text" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. Scrapped machinery material disposed of without ethical verification" />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Description / Violation</label>
+                <input name="description" type="text" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. Scrapped machinery material disposed of without ethical verification" />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Associated Audit</label>
-                  <select name="auditId" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs">
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Associated Audit</label>
+                  <select name="auditId" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs">
                     {audits.map((a) => (
                       <option key={a.id} value={a.id}>{a.title} ({a.department.code})</option>
                     ))}
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Severity</label>
-                  <select name="severity" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs">
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Severity</label>
+                  <select name="severity" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs">
                     <option value="LOW">Low</option>
                     <option value="MEDIUM">Medium</option>
                     <option value="HIGH">High</option>
@@ -552,21 +552,21 @@ export default function GovernanceClient({
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Assignee (Owner)</label>
-                  <select name="ownerId" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs">
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Assignee (Owner)</label>
+                  <select name="ownerId" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs">
                     {users.map((u) => (
                       <option key={u.id} value={u.id}>{u.name} ({u.role})</option>
                     ))}
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Due Date</label>
-                  <input name="dueDate" type="date" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" />
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Due Date</label>
+                  <input name="dueDate" type="date" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" />
                 </div>
               </div>
 
               <div className="flex justify-end gap-3 mt-6">
-                <button type="button" onClick={() => setComplianceModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-850 hover:bg-slate-800 text-xs font-semibold text-slate-400 transition-all">Cancel</button>
+                <button type="button" onClick={() => setComplianceModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-100 hover:bg-slate-100 text-xs font-semibold text-slate-600 transition-all">Cancel</button>
                 <button type="submit" disabled={formLoading} className="px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-xs font-semibold text-white flex items-center gap-1.5 transition-all">
                   {formLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   Raise Issue

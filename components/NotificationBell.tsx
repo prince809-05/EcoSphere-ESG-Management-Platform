@@ -71,7 +71,7 @@ export default function NotificationBell({
       {/* Bell Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition-all focus:outline-none"
+        className="relative p-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:border-zinc-700 transition-all focus:outline-none"
       >
         <Bell className="w-5 h-5" />
         {unreadCount > 0 && (
@@ -90,11 +90,11 @@ export default function NotificationBell({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute right-0 mt-2 w-80 sm:w-96 rounded-xl border border-slate-800 bg-slate-900/95 backdrop-blur-xl shadow-2xl z-50 overflow-hidden"
+            className="absolute right-0 mt-2 w-80 sm:w-96 rounded-xl border border-slate-200 bg-white/95 backdrop-blur-xl shadow-2xl z-50 overflow-hidden"
           >
-            <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-950/40">
+            <div className="flex items-center justify-between p-4 border-b border-slate-200 bg-white/80">
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-white text-sm">Notifications</span>
+                <span className="font-semibold text-slate-900 text-sm">Notifications</span>
                 {unreadCount > 0 && (
                   <span className="px-1.5 py-0.5 rounded-full bg-rose-500/10 text-rose-400 text-[10px] font-bold">
                     {unreadCount} new
@@ -112,11 +112,11 @@ export default function NotificationBell({
               )}
             </div>
 
-            <div className="max-h-[320px] overflow-y-auto divide-y divide-slate-800/60">
+            <div className="max-h-[320px] overflow-y-auto divide-y divide-zinc-800/60">
               {notifications.length === 0 ? (
                 <div className="flex flex-col items-center justify-center p-8 text-center">
-                  <Mail className="w-8 h-8 text-slate-600 mb-2" />
-                  <p className="text-xs text-slate-400">All caught up!</p>
+                  <Mail className="w-8 h-8 text-slate-400 mb-2" />
+                  <p className="text-xs text-slate-600">All caught up!</p>
                   <p className="text-[10px] text-slate-500 mt-0.5">No new notifications.</p>
                 </div>
               ) : (
@@ -124,19 +124,19 @@ export default function NotificationBell({
                   <div
                     key={n.id}
                     onClick={() => handleMarkAsRead(n.id, n.link)}
-                    className={`flex flex-col p-4 cursor-pointer hover:bg-slate-800/40 transition-all ${
-                      !n.read ? 'bg-slate-950/20 border-l-2 border-emerald-500' : ''
+                    className={`flex flex-col p-4 cursor-pointer hover:bg-slate-100 transition-all ${
+                      !n.read ? 'bg-slate-50 border-l-2 border-emerald-500' : ''
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2">
-                      <span className={`text-xs font-semibold ${!n.read ? 'text-white' : 'text-slate-300'}`}>
+                      <span className={`text-xs font-semibold ${!n.read ? 'text-slate-900' : 'text-slate-700'}`}>
                         {n.title}
                       </span>
                       <span className="text-[9px] text-slate-500 whitespace-nowrap">
                         {formatTime(n.createdAt)}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
                       {n.message}
                     </p>
                     {n.link && (

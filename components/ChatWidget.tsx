@@ -64,7 +64,7 @@ export default function ChatWidget() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-center w-14 h-14 rounded-full bg-slate-900 border-2 border-emerald-500 hover:border-emerald-450 hover:bg-slate-850 shadow-[0_0_15px_rgba(16,185,129,0.2)] hover:shadow-[0_0_22px_rgba(16,185,129,0.35)] text-emerald-400 focus:outline-none transition-all"
+        className="flex items-center justify-center w-14 h-14 rounded-full bg-white border-2 border-emerald-500 hover:border-emerald-450 hover:bg-slate-50 shadow-[0_0_15px_rgba(16,185,129,0.2)] hover:shadow-[0_0_22px_rgba(16,185,129,0.35)] text-emerald-400 focus:outline-none transition-all"
       >
         {isOpen ? <X className="w-5 h-5" /> : <MessageSquare className="w-6 h-6 animate-pulse" />}
       </motion.button>
@@ -77,16 +77,16 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 25, scale: 0.96 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="absolute bottom-16 right-0 w-80 sm:w-[400px] h-[520px] rounded-2xl border border-slate-800 bg-[#0d1017] shadow-[0_12px_45px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
+            className="absolute bottom-16 right-0 w-80 sm:w-[400px] h-[520px] rounded-2xl border border-slate-200 bg-[#f8fafc] shadow-[0_12px_45px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 bg-[#131722] border-b border-slate-850">
+            <div className="flex items-center justify-between px-4 py-3 bg-[#ffffff] border-b border-slate-100">
               <div className="flex items-center gap-2.5">
                 <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
                   <Leaf className="w-4 h-4 text-emerald-400" />
                 </div>
                 <div>
-                  <h3 className="text-xs font-bold text-white tracking-wide uppercase">
+                  <h3 className="text-xs font-bold text-slate-900 tracking-wide uppercase">
                     EcoSphere AI
                   </h3>
                   <p className="text-[9px] text-slate-500 font-semibold uppercase">ESG Copilot Assistant</p>
@@ -94,14 +94,14 @@ export default function ChatWidget() {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-slate-500 hover:text-white p-1 rounded-md transition-all"
+                className="text-slate-500 hover:text-slate-900 p-1 rounded-md transition-all"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Message Area */}
-            <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-[#0d1017]">
+            <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-[#f8fafc]">
               {messages.map((msg, index) => (
                 <div
                   key={index}
@@ -110,8 +110,8 @@ export default function ChatWidget() {
                   <div
                     className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-xs leading-relaxed whitespace-pre-line ${
                       msg.sender === 'user'
-                        ? 'bg-slate-900 border border-slate-800 text-white rounded-tr-none'
-                        : 'bg-[#181d28] border border-slate-800/80 text-slate-200 rounded-tl-none'
+                        ? 'bg-white border border-slate-200 text-slate-900 rounded-tr-none'
+                        : 'bg-[#f1f5f9] border border-slate-200/80 text-slate-800 rounded-tl-none'
                     }`}
                   >
                     {msg.text}
@@ -121,7 +121,7 @@ export default function ChatWidget() {
 
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-[#181d28] border border-slate-800/80 text-slate-400 rounded-2xl rounded-tl-none px-4 py-2.5 text-xs flex items-center gap-2">
+                  <div className="bg-[#f1f5f9] border border-slate-200/80 text-slate-600 rounded-2xl rounded-tl-none px-4 py-2.5 text-xs flex items-center gap-2">
                     <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-400" />
                     Analyzing ESG context...
                   </div>
@@ -131,18 +131,18 @@ export default function ChatWidget() {
             </div>
 
             {/* Input Form */}
-            <form onSubmit={handleSend} className="p-3 border-t border-slate-850 bg-[#0d1017] flex gap-2">
+            <form onSubmit={handleSend} className="p-3 border-t border-slate-100 bg-[#f8fafc] flex gap-2">
               <input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Ask about carbon reduction suggestions..."
-                className="flex-1 px-3 py-2.5 text-xs rounded-xl border border-slate-800 bg-[#141923] text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-emerald-500/20 transition-all"
+                className="flex-1 px-3 py-2.5 text-xs rounded-xl border border-slate-200 bg-[#ffffff] text-slate-900 placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-emerald-500/20 transition-all"
               />
               <button
                 type="submit"
                 disabled={loading || !inputValue.trim()}
-                className="p-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 disabled:bg-slate-850 text-white transition-all shadow-md shadow-emerald-500/10 focus:outline-none flex items-center justify-center shrink-0 w-9 h-9"
+                className="p-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 disabled:bg-slate-50 text-white transition-all shadow-md shadow-emerald-500/10 focus:outline-none flex items-center justify-center shrink-0 w-9 h-9"
               >
                 <Send className="w-3.5 h-3.5" />
               </button>

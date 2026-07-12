@@ -155,18 +155,18 @@ export default function SettingsClient({
       {/* Header */}
       <div>
         <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-          <Settings className="w-6 h-6 text-slate-400" />
+          <Settings className="w-6 h-6 text-slate-600" />
           Settings & Configurations
         </h1>
-        <p className="text-xs text-slate-400 mt-1">Configure global ESG weights, toggle system flags, manage departments and categories.</p>
+        <p className="text-xs text-slate-600 mt-1">Configure global ESG weights, toggle system flags, manage departments and categories.</p>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-800">
+      <div className="flex border-b border-slate-200">
         <button
           onClick={() => setActiveTab('config')}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-            activeTab === 'config' ? 'border-slate-400 text-white' : 'border-transparent text-slate-400 hover:text-white'
+            activeTab === 'config' ? 'border-zinc-400 text-slate-900' : 'border-transparent text-slate-600 hover:text-slate-900'
           }`}
         >
           ESG Score Configuration
@@ -174,7 +174,7 @@ export default function SettingsClient({
         <button
           onClick={() => setActiveTab('departments')}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-            activeTab === 'departments' ? 'border-slate-400 text-white' : 'border-transparent text-slate-400 hover:text-white'
+            activeTab === 'departments' ? 'border-zinc-400 text-slate-900' : 'border-transparent text-slate-600 hover:text-slate-900'
           }`}
         >
           Departments Management
@@ -182,7 +182,7 @@ export default function SettingsClient({
         <button
           onClick={() => setActiveTab('categories')}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-            activeTab === 'categories' ? 'border-slate-400 text-white' : 'border-transparent text-slate-400 hover:text-white'
+            activeTab === 'categories' ? 'border-zinc-400 text-slate-900' : 'border-transparent text-slate-600 hover:text-slate-900'
           }`}
         >
           Activity Categories
@@ -194,9 +194,9 @@ export default function SettingsClient({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Weight Adjustments */}
           <div className="lg:col-span-2 space-y-6">
-            <Card className="bg-slate-900 border-slate-800 text-white">
-              <CardHeader className="pb-4 border-b border-slate-800">
-                <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+            <Card className="bg-white border-slate-200 text-slate-900">
+              <CardHeader className="pb-4 border-b border-slate-200">
+                <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-2">
                   <SlidersHorizontal className="w-4.5 h-4.5 text-slate-500" />
                   Pillar Weightings Allocation
                 </CardTitle>
@@ -216,7 +216,7 @@ export default function SettingsClient({
                       step="0.05"
                       value={envWeight}
                       onChange={(e) => setEnvWeight(Number(e.target.value))}
-                      className="w-full h-1.5 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                      className="w-full h-1.5 bg-slate-50 rounded-lg appearance-none cursor-pointer accent-emerald-500"
                     />
                   </div>
 
@@ -233,7 +233,7 @@ export default function SettingsClient({
                       step="0.05"
                       value={socialWeight}
                       onChange={(e) => setSocialWeight(Number(e.target.value))}
-                      className="w-full h-1.5 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                      className="w-full h-1.5 bg-slate-50 rounded-lg appearance-none cursor-pointer accent-amber-500"
                     />
                   </div>
 
@@ -250,13 +250,13 @@ export default function SettingsClient({
                       step="0.05"
                       value={govWeight}
                       onChange={(e) => setGovWeight(Number(e.target.value))}
-                      className="w-full h-1.5 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                      className="w-full h-1.5 bg-slate-50 rounded-lg appearance-none cursor-pointer accent-blue-500"
                     />
                   </div>
                 </div>
 
                 {/* Validation Info */}
-                <div className="flex items-center justify-between p-4 rounded-xl border border-slate-800 bg-slate-950/60 text-xs">
+                <div className="flex items-center justify-between p-4 rounded-xl border border-slate-200 bg-slate-50/60 text-xs">
                   <div className="flex items-center gap-2">
                     <AlertCircle className={`w-4.5 h-4.5 ${weightsValid ? 'text-emerald-400' : 'text-rose-400'}`} />
                     <span className="font-semibold">Sum of Weights: {totalWeight.toFixed(2)}</span>
@@ -268,11 +268,11 @@ export default function SettingsClient({
                   </Badge>
                 </div>
 
-                <div className="flex justify-end pt-4 border-t border-slate-800/60">
+                <div className="flex justify-end pt-4 border-t border-slate-200">
                   <button
                     onClick={handleSaveConfig}
                     disabled={formLoading || !weightsValid}
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 disabled:bg-slate-850 text-xs font-semibold text-white transition-all shadow-md shadow-emerald-500/10"
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 disabled:bg-slate-50 text-xs font-semibold text-white transition-all shadow-md shadow-emerald-500/10"
                   >
                     {formLoading ? (
                       <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -288,59 +288,59 @@ export default function SettingsClient({
 
           {/* Engine Config Toggles */}
           <div className="space-y-6">
-            <Card className="bg-slate-900 border-slate-800 text-white">
-              <CardHeader className="pb-4 border-b border-slate-800">
-                <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-400">
+            <Card className="bg-white border-slate-200 text-slate-900">
+              <CardHeader className="pb-4 border-b border-slate-200">
+                <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-600">
                   ESG Calculation Rules
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6 space-y-4">
                 <div className="flex items-center justify-between py-2 text-xs">
                   <div>
-                    <p className="font-bold text-slate-200">Auto Emission Calculation</p>
+                    <p className="font-bold text-slate-800">Auto Emission Calculation</p>
                     <p className="text-[10px] text-slate-500 mt-0.5">Derive CO2 from factor values automatically</p>
                   </div>
                   <input
                     type="checkbox"
                     checked={autoEmission}
                     onChange={(e) => setAutoEmission(e.target.checked)}
-                    className="rounded border-slate-850 bg-slate-950 text-emerald-500 focus:ring-emerald-500"
+                    className="rounded border-slate-100 bg-slate-50 text-emerald-500 focus:ring-emerald-500"
                   />
                 </div>
                 <div className="flex items-center justify-between py-2 text-xs">
                   <div>
-                    <p className="font-bold text-slate-200">Require Evidence for CSR</p>
+                    <p className="font-bold text-slate-800">Require Evidence for CSR</p>
                     <p className="text-[10px] text-slate-500 mt-0.5">Block approvals without proof file link</p>
                   </div>
                   <input
                     type="checkbox"
                     checked={requireEvidence}
                     onChange={(e) => setRequireEvidence(e.target.checked)}
-                    className="rounded border-slate-850 bg-slate-950 text-emerald-500 focus:ring-emerald-500"
+                    className="rounded border-slate-100 bg-slate-50 text-emerald-500 focus:ring-emerald-500"
                   />
                 </div>
                 <div className="flex items-center justify-between py-2 text-xs">
                   <div>
-                    <p className="font-bold text-slate-200">Badge Auto-Awarding</p>
+                    <p className="font-bold text-slate-800">Badge Auto-Awarding</p>
                     <p className="text-[10px] text-slate-500 mt-0.5">Award badges instantly when rule threshold matches</p>
                   </div>
                   <input
                     type="checkbox"
                     checked={autoBadges}
                     onChange={(e) => setAutoBadges(e.target.checked)}
-                    className="rounded border-slate-850 bg-slate-950 text-emerald-500 focus:ring-emerald-500"
+                    className="rounded border-slate-100 bg-slate-50 text-emerald-500 focus:ring-emerald-500"
                   />
                 </div>
                 <div className="flex items-center justify-between py-2 text-xs">
                   <div>
-                    <p className="font-bold text-slate-200">Email Notifications</p>
+                    <p className="font-bold text-slate-800">Email Notifications</p>
                     <p className="text-[10px] text-slate-500 mt-0.5">Send alerts for compliance/CSR actions</p>
                   </div>
                   <input
                     type="checkbox"
                     checked={emailNotif}
                     onChange={(e) => setEmailNotif(e.target.checked)}
-                    className="rounded border-slate-850 bg-slate-950 text-emerald-500 focus:ring-emerald-500"
+                    className="rounded border-slate-100 bg-slate-50 text-emerald-500 focus:ring-emerald-500"
                   />
                 </div>
               </CardContent>
@@ -354,11 +354,11 @@ export default function SettingsClient({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* List Table */}
           <div className="lg:col-span-2">
-            <Card className="bg-slate-900 border-slate-800 text-white">
+            <Card className="bg-white border-slate-200 text-slate-900">
               <CardContent className="p-0 overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="bg-slate-950/40 text-slate-400 border-b border-slate-800 font-semibold uppercase text-[10px]">
+                    <tr className="bg-white/80 text-slate-600 border-b border-slate-200 font-semibold uppercase text-[10px]">
                       <th className="p-4">Name</th>
                       <th className="p-4">Code</th>
                       <th className="p-4 text-center">Employees</th>
@@ -366,11 +366,11 @@ export default function SettingsClient({
                       <th className="p-4 text-center font-bold">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60">
+                  <tbody className="divide-y divide-zinc-800/60">
                     {departments.map((dept) => (
-                      <tr key={dept.id} className="hover:bg-slate-850/25 transition-all text-slate-200">
+                      <tr key={dept.id} className="hover:bg-slate-50/25 transition-all text-slate-800">
                         <td className="p-4 font-semibold">{dept.name}</td>
-                        <td className="p-4 text-slate-400">{dept.code}</td>
+                        <td className="p-4 text-slate-600">{dept.code}</td>
                         <td className="p-4 text-center font-bold">{dept.employeeCount} staff</td>
                         <td className="p-4 text-center font-extrabold text-violet-400">
                           {Number(dept.totalScore).toFixed(1)} / 100
@@ -394,9 +394,9 @@ export default function SettingsClient({
 
           {/* Create Form */}
           <div>
-            <Card className="bg-slate-900 border-slate-800 text-white">
-              <CardHeader className="pb-4 border-b border-slate-800">
-                <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+            <Card className="bg-white border-slate-200 text-slate-900">
+              <CardHeader className="pb-4 border-b border-slate-200">
+                <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-2">
                   <FolderTree className="w-4.5 h-4.5 text-slate-500" />
                   Add Department
                 </CardTitle>
@@ -404,12 +404,12 @@ export default function SettingsClient({
               <CardContent className="p-6">
                 <form onSubmit={handleCreateDept} className="space-y-4">
                   <div className="space-y-1">
-                    <label className="text-[10px] font-semibold text-slate-400 uppercase">Department Name</label>
-                    <input name="name" type="text" required className="w-full p-2.5 rounded-lg border border-slate-850 bg-slate-950 text-white text-xs" placeholder="e.g. Quality Assurance" />
+                    <label className="text-[10px] font-semibold text-slate-600 uppercase">Department Name</label>
+                    <input name="name" type="text" required className="w-full p-2.5 rounded-lg border border-slate-100 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. Quality Assurance" />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] font-semibold text-slate-400 uppercase">Department Code</label>
-                    <input name="code" type="text" required className="w-full p-2.5 rounded-lg border border-slate-850 bg-slate-950 text-white text-xs" placeholder="e.g. QA" />
+                    <label className="text-[10px] font-semibold text-slate-600 uppercase">Department Code</label>
+                    <input name="code" type="text" required className="w-full p-2.5 rounded-lg border border-slate-100 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. QA" />
                   </div>
                   <button
                     type="submit"
@@ -431,19 +431,19 @@ export default function SettingsClient({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* List Table */}
           <div className="lg:col-span-2">
-            <Card className="bg-slate-900 border-slate-800 text-white">
+            <Card className="bg-white border-slate-200 text-slate-900">
               <CardContent className="p-0 overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="bg-slate-950/40 text-slate-400 border-b border-slate-800 font-semibold uppercase text-[10px]">
+                    <tr className="bg-white/80 text-slate-600 border-b border-slate-200 font-semibold uppercase text-[10px]">
                       <th className="p-4">Category Name</th>
                       <th className="p-4">Pillar type</th>
                       <th className="p-4 text-center font-bold">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60">
+                  <tbody className="divide-y divide-zinc-800/60">
                     {categories.map((cat) => (
-                      <tr key={cat.id} className="hover:bg-slate-850/25 transition-all text-slate-200">
+                      <tr key={cat.id} className="hover:bg-slate-50/25 transition-all text-slate-800">
                         <td className="p-4 font-semibold">{cat.name}</td>
                         <td className="p-4">
                           <Badge className={`${
@@ -471,9 +471,9 @@ export default function SettingsClient({
 
           {/* Create Form */}
           <div>
-            <Card className="bg-slate-900 border-slate-800 text-white">
-              <CardHeader className="pb-4 border-b border-slate-800">
-                <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+            <Card className="bg-white border-slate-200 text-slate-900">
+              <CardHeader className="pb-4 border-b border-slate-200">
+                <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-2">
                   <Layers className="w-4.5 h-4.5 text-slate-500" />
                   Add Category
                 </CardTitle>
@@ -481,12 +481,12 @@ export default function SettingsClient({
               <CardContent className="p-6">
                 <form onSubmit={handleCreateCat} className="space-y-4">
                   <div className="space-y-1">
-                    <label className="text-[10px] font-semibold text-slate-400 uppercase">Category Name</label>
-                    <input name="name" type="text" required className="w-full p-2.5 rounded-lg border border-slate-850 bg-slate-950 text-white text-xs" placeholder="e.g. Energy Reduction" />
+                    <label className="text-[10px] font-semibold text-slate-600 uppercase">Category Name</label>
+                    <input name="name" type="text" required className="w-full p-2.5 rounded-lg border border-slate-100 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. Energy Reduction" />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[10px] font-semibold text-slate-400 uppercase">Category Type</label>
-                    <select name="type" className="w-full p-2.5 rounded-lg border border-slate-850 bg-slate-950 text-white text-xs">
+                    <label className="text-[10px] font-semibold text-slate-600 uppercase">Category Type</label>
+                    <select name="type" className="w-full p-2.5 rounded-lg border border-slate-100 bg-slate-50 text-slate-900 text-xs">
                       <option value="CSR_ACTIVITY">CSR Activity Category</option>
                       <option value="CHALLENGE">Challenge Category</option>
                     </select>

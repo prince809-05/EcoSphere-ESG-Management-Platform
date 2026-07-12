@@ -13,7 +13,7 @@ let cacheExpiry: number = 0;
 export async function getDashboardInsights(scores: ESGProps): Promise<string[]> {
   const now = Date.now();
   
-  if (cachedInsights && now < cacheExpiry) {
+  if (cachedInsights && now < cacheExpiry && false) {
     return cachedInsights;
   }
 

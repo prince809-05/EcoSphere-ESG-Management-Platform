@@ -164,7 +164,7 @@ export default function ReportsClient({
 
     doc.setFontSize(10);
     doc.setTextColor(100, 116, 139);
-    doc.text(`Pillar Module: ${moduleId} | Date Generated: ${new Date().toLocaleDateString()}`, 14, 28);
+    doc.text(`Pillar Module: ${moduleId} | Date Generated: ${new Date().toLocaleDateString('en-US')}`, 14, 28);
     doc.line(14, 32, 196, 32);
 
     // AI Summary Box
@@ -226,37 +226,37 @@ export default function ReportsClient({
           <FileText className="w-6 h-6 text-rose-400" />
           ESG Auditing & Reports
         </h1>
-        <p className="text-xs text-slate-400 mt-1">Generate dynamic compliance logs, export executive documents, and audit ESG balances.</p>
+        <p className="text-xs text-slate-600 mt-1">Generate dynamic compliance logs, export executive documents, and audit ESG balances.</p>
       </div>
 
       {/* Preset Report Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <button onClick={() => runPresetReport('ENVIRONMENTAL')} className="p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:border-emerald-500/30 text-left hover:bg-slate-900/60 transition-all group">
+        <button onClick={() => runPresetReport('ENVIRONMENTAL')} className="p-4 rounded-xl border border-slate-200 bg-white/60 hover:border-emerald-500/30 text-left hover:bg-slate-50 transition-all group">
           <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[9px] uppercase font-bold">Environmental</Badge>
-          <h4 className="text-xs font-bold text-white mt-2">Carbon Balances</h4>
+          <h4 className="text-xs font-bold text-slate-900 mt-2">Carbon Balances</h4>
           <p className="text-[10px] text-slate-500 mt-1">Carbon transactions and grid factor calculations log.</p>
         </button>
-        <button onClick={() => runPresetReport('SOCIAL')} className="p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:border-amber-500/30 text-left hover:bg-slate-900/60 transition-all group">
+        <button onClick={() => runPresetReport('SOCIAL')} className="p-4 rounded-xl border border-slate-200 bg-white/60 hover:border-amber-500/30 text-left hover:bg-slate-50 transition-all group">
           <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/20 text-[9px] uppercase font-bold">Social</Badge>
-          <h4 className="text-xs font-bold text-white mt-2">CSR Volunteering</h4>
+          <h4 className="text-xs font-bold text-slate-900 mt-2">CSR Volunteering</h4>
           <p className="text-[10px] text-slate-500 mt-1">CSR approvals queue and employee engagement metrics.</p>
         </button>
-        <button onClick={() => runPresetReport('GOVERNANCE')} className="p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:border-blue-500/30 text-left hover:bg-slate-900/60 transition-all group">
+        <button onClick={() => runPresetReport('GOVERNANCE')} className="p-4 rounded-xl border border-slate-200 bg-white/60 hover:border-blue-500/30 text-left hover:bg-slate-50 transition-all group">
           <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/20 text-[9px] uppercase font-bold">Governance</Badge>
-          <h4 className="text-xs font-bold text-white mt-2">Compliance & Audits</h4>
+          <h4 className="text-xs font-bold text-slate-900 mt-2">Compliance & Audits</h4>
           <p className="text-[10px] text-slate-500 mt-1">Audit compliance status, open issues, and policies.</p>
         </button>
-        <button onClick={() => runPresetReport('ALL')} className="p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:border-violet-500/30 text-left hover:bg-slate-900/60 transition-all group">
+        <button onClick={() => runPresetReport('ALL')} className="p-4 rounded-xl border border-slate-200 bg-white/60 hover:border-violet-500/30 text-left hover:bg-slate-50 transition-all group">
           <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[9px] uppercase font-bold">ESG Summary</Badge>
-          <h4 className="text-xs font-bold text-white mt-2">Executive Summary</h4>
+          <h4 className="text-xs font-bold text-slate-900 mt-2">Executive Summary</h4>
           <p className="text-[10px] text-slate-500 mt-1">A consolidated breakdown of all E, S, and G metrics.</p>
         </button>
       </div>
 
       {/* Custom Report Builder Card */}
-      <Card className="bg-slate-900 border-slate-800 text-white">
-        <CardHeader className="pb-4 border-b border-slate-800">
-          <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+      <Card className="bg-white border-slate-200 text-slate-900">
+        <CardHeader className="pb-4 border-b border-slate-200">
+          <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-2">
             <Filter className="w-4 h-4 text-slate-500" />
             Custom Report Builder
           </CardTitle>
@@ -264,7 +264,7 @@ export default function ReportsClient({
         <CardContent className="p-6">
           <form onSubmit={handleRunReport} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
             <div className="space-y-1.5">
-              <label className="text-[10px] font-semibold text-slate-400 uppercase flex items-center gap-1">
+              <label className="text-[10px] font-semibold text-slate-600 uppercase flex items-center gap-1">
                 <Calendar className="w-3.5 h-3.5" />
                 Start Date
               </label>
@@ -272,11 +272,11 @@ export default function ReportsClient({
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="w-full p-2 rounded-lg border border-slate-850 bg-slate-950 text-white text-xs"
+                className="w-full p-2 rounded-lg border border-slate-100 bg-slate-50 text-slate-900 text-xs"
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-[10px] font-semibold text-slate-400 uppercase flex items-center gap-1">
+              <label className="text-[10px] font-semibold text-slate-600 uppercase flex items-center gap-1">
                 <Calendar className="w-3.5 h-3.5" />
                 End Date
               </label>
@@ -284,18 +284,18 @@ export default function ReportsClient({
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="w-full p-2 rounded-lg border border-slate-850 bg-slate-950 text-white text-xs"
+                className="w-full p-2 rounded-lg border border-slate-100 bg-slate-50 text-slate-900 text-xs"
               />
             </div>
             <div className="space-y-1.5">
-              <label className="text-[10px] font-semibold text-slate-400 uppercase flex items-center gap-1">
+              <label className="text-[10px] font-semibold text-slate-600 uppercase flex items-center gap-1">
                 <Briefcase className="w-3.5 h-3.5" />
                 Department
               </label>
               <select
                 value={departmentId}
                 onChange={(e) => setDepartmentId(e.target.value)}
-                className="w-full p-2 rounded-lg border border-slate-850 bg-slate-950 text-white text-xs"
+                className="w-full p-2 rounded-lg border border-slate-100 bg-slate-50 text-slate-900 text-xs"
               >
                 <option value="">All Departments</option>
                 {departments.map((d) => (
@@ -304,14 +304,14 @@ export default function ReportsClient({
               </select>
             </div>
             <div className="space-y-1.5">
-              <label className="text-[10px] font-semibold text-slate-400 uppercase flex items-center gap-1">
+              <label className="text-[10px] font-semibold text-slate-600 uppercase flex items-center gap-1">
                 <Layers className="w-3.5 h-3.5" />
                 Module / Pillar
               </label>
               <select
                 value={moduleId}
                 onChange={(e) => setModuleId(e.target.value as any)}
-                className="w-full p-2 rounded-lg border border-slate-850 bg-slate-950 text-white text-xs"
+                className="w-full p-2 rounded-lg border border-slate-100 bg-slate-50 text-slate-900 text-xs"
               >
                 <option value="ALL">All (Summary)</option>
                 <option value="ENVIRONMENTAL">Environmental</option>
@@ -349,32 +349,32 @@ export default function ReportsClient({
               <Sparkles className="w-4 h-4 text-amber-400" />
               AI Executive Report Summary
             </h3>
-            <p className="text-xs text-slate-200 leading-relaxed font-medium">
+            <p className="text-xs text-slate-800 leading-relaxed font-medium">
               {reportResults.aiSummary}
             </p>
           </div>
 
           {/* Export tools */}
-          <div className="flex flex-wrap gap-3 items-center justify-between p-4 rounded-xl border border-slate-800 bg-slate-900/30">
-            <span className="text-xs text-slate-400 font-medium">Report generated successfully. Ready to export:</span>
+          <div className="flex flex-wrap gap-3 items-center justify-between p-4 rounded-xl border border-slate-200 bg-white/30">
+            <span className="text-xs text-slate-600 font-medium">Report generated successfully. Ready to export:</span>
             <div className="flex gap-2">
               <button
                 onClick={handleExportCSV}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 hover:bg-slate-900 hover:text-white text-slate-400 text-xs font-semibold transition-all"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 hover:bg-white hover:text-slate-900 text-slate-600 text-xs font-semibold transition-all"
               >
                 <Download className="w-3.5 h-3.5" />
                 Export CSV
               </button>
               <button
                 onClick={handleExportExcel}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 hover:bg-slate-900 hover:text-white text-slate-400 text-xs font-semibold transition-all"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 hover:bg-white hover:text-slate-900 text-slate-600 text-xs font-semibold transition-all"
               >
                 <Download className="w-3.5 h-3.5" />
                 Export Excel
               </button>
               <button
                 onClick={handleExportPDF}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 hover:bg-slate-900 hover:text-white text-slate-400 text-xs font-semibold transition-all"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 hover:bg-white hover:text-slate-900 text-slate-600 text-xs font-semibold transition-all"
               >
                 <Download className="w-3.5 h-3.5" />
                 Export PDF
@@ -383,16 +383,16 @@ export default function ReportsClient({
           </div>
 
           {/* Table Results */}
-          <Card className="bg-slate-900 border-slate-800 text-white">
-            <CardHeader className="pb-4 border-b border-slate-800">
-              <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          <Card className="bg-white border-slate-200 text-slate-900">
+            <CardHeader className="pb-4 border-b border-slate-200">
+              <CardTitle className="text-xs font-bold uppercase tracking-wider text-slate-600">
                 Report Ledger Results
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0 overflow-x-auto">
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
-                  <tr className="bg-slate-950/40 text-slate-400 border-b border-slate-800 font-semibold uppercase text-[10px]">
+                  <tr className="bg-white/80 text-slate-600 border-b border-slate-200 font-semibold uppercase text-[10px]">
                     <th className="p-4">Pillar</th>
                     <th className="p-4">Date</th>
                     <th className="p-4">Department</th>
@@ -401,9 +401,9 @@ export default function ReportsClient({
                     <th className="p-4 text-center">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-zinc-800/60">
                   {getCombinedDataForExport().map((row, idx) => (
-                    <tr key={idx} className="hover:bg-slate-850/25 transition-all text-slate-200">
+                    <tr key={idx} className="hover:bg-slate-50/25 transition-all text-slate-800">
                       <td className="p-4">
                         <Badge className={`${
                           row.Pillar === 'Environmental' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
@@ -413,12 +413,12 @@ export default function ReportsClient({
                           {row.Pillar}
                         </Badge>
                       </td>
-                      <td className="p-4 text-slate-400">{row.Date}</td>
+                      <td className="p-4 text-slate-600">{row.Date}</td>
                       <td className="p-4 font-semibold">{row.Department}</td>
-                      <td className="p-4 max-w-sm truncate text-slate-300">{row.Details}</td>
-                      <td className="p-4 text-right font-extrabold text-white">{row.Metric}</td>
+                      <td className="p-4 max-w-sm truncate text-slate-700">{row.Details}</td>
+                      <td className="p-4 text-right font-extrabold text-slate-900">{row.Metric}</td>
                       <td className="p-4 text-center">
-                        <Badge className="bg-slate-950 border-slate-850 text-slate-400 text-[8px] font-bold uppercase">
+                        <Badge className="bg-slate-50 border-slate-100 text-slate-600 text-[8px] font-bold uppercase">
                           {row.Status}
                         </Badge>
                       </td>

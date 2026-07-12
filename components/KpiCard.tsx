@@ -40,7 +40,7 @@ export default function KpiCard({
       transition={{ duration: 0.3 }}
       className="w-full"
     >
-      <Card className="bg-slate-900/40 border-slate-850 backdrop-blur-md overflow-hidden relative group hover:border-slate-750 transition-all shadow-xl">
+      <Card className="bg-white/60 border-slate-100 backdrop-blur-md overflow-hidden relative group hover:border-zinc-750 transition-all shadow-xl">
         {/* Top colored accent line */}
         <div className={`absolute top-0 left-0 right-0 h-[3px] ${
           iconName === 'leaf' ? 'bg-emerald-500/80' :
@@ -52,19 +52,19 @@ export default function KpiCard({
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-bold tracking-wider text-slate-500 uppercase">{title}</span>
-            <div className={`p-2 rounded-xl bg-slate-950/60 border border-slate-850 ${colorClass}`}>
+            <div className={`p-2 rounded-xl bg-slate-50/60 border border-slate-100 ${colorClass}`}>
               <Icon className="w-4 h-4" />
             </div>
           </div>
 
           <div className="mt-4 flex items-baseline gap-1.5">
-            <span className="text-3xl font-extrabold tracking-tight text-white">
+            <span className="text-3xl font-extrabold tracking-tight text-slate-900">
               {value.toFixed(1)}
             </span>
             <span className="text-[10px] text-slate-500 font-bold">/ 100</span>
           </div>
 
-          <p className="mt-3 text-[10px] leading-relaxed text-slate-400 group-hover:text-slate-300 transition-colors">
+          <p className="mt-3 text-[10px] leading-relaxed text-slate-600 group-hover:text-slate-700 transition-colors">
             {description}
           </p>
         </CardContent>

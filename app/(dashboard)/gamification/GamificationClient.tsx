@@ -170,7 +170,7 @@ export default function GamificationClient({
   return (
     <div className="space-y-6">
       {/* 1. Header Profile Stats */}
-      <div className="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-md flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
+      <div className="p-6 rounded-2xl border border-slate-200 bg-slate-50 backdrop-blur-md flex flex-col md:flex-row md:items-center justify-between gap-6 relative overflow-hidden">
         <div className="absolute top-[-50%] left-[-10%] w-[30%] h-[150%] rounded-full bg-violet-500/5 blur-[80px] pointer-events-none" />
         
         {/* Left Stats */}
@@ -181,7 +181,7 @@ export default function GamificationClient({
             </div>
             <div>
               <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Level Progress</p>
-              <h2 className="text-lg font-extrabold text-white mt-0.5">{currentUserStats.totalXP} XP</h2>
+              <h2 className="text-lg font-extrabold text-slate-900 mt-0.5">{currentUserStats.totalXP} XP</h2>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -190,7 +190,7 @@ export default function GamificationClient({
             </div>
             <div>
               <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Points Balance</p>
-              <h2 className="text-lg font-extrabold text-white mt-0.5">{currentUserStats.totalPoints} Points</h2>
+              <h2 className="text-lg font-extrabold text-slate-900 mt-0.5">{currentUserStats.totalPoints} Points</h2>
             </div>
           </div>
         </div>
@@ -200,7 +200,7 @@ export default function GamificationClient({
           <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Unlocked Badges ({badges.length})</p>
           <div className="flex flex-wrap gap-2">
             {badges.map((eb) => (
-              <BadgeUi key={eb.id} className="bg-slate-950 hover:bg-slate-900 border-slate-800 text-[10px] font-bold text-slate-200 flex items-center gap-1.5 px-2.5 py-1">
+              <BadgeUi key={eb.id} className="bg-slate-50 hover:bg-white border-slate-200 text-[10px] font-bold text-slate-800 flex items-center gap-1.5 px-2.5 py-1">
                 <Sparkles className="w-3.5 h-3.5 text-violet-400" />
                 {eb.badge.name}
               </BadgeUi>
@@ -213,11 +213,11 @@ export default function GamificationClient({
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-800">
+      <div className="flex border-b border-slate-200">
         <button
           onClick={() => setActiveTab('challenges')}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-            activeTab === 'challenges' ? 'border-violet-500 text-violet-400' : 'border-transparent text-slate-400 hover:text-white'
+            activeTab === 'challenges' ? 'border-violet-500 text-violet-400' : 'border-transparent text-slate-600 hover:text-slate-900'
           }`}
         >
           Active Challenges
@@ -225,7 +225,7 @@ export default function GamificationClient({
         <button
           onClick={() => setActiveTab('leaderboard')}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-            activeTab === 'leaderboard' ? 'border-violet-500 text-violet-400' : 'border-transparent text-slate-400 hover:text-white'
+            activeTab === 'leaderboard' ? 'border-violet-500 text-violet-400' : 'border-transparent text-slate-600 hover:text-slate-900'
           }`}
         >
           XP Leaderboard
@@ -233,7 +233,7 @@ export default function GamificationClient({
         <button
           onClick={() => setActiveTab('rewards')}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-            activeTab === 'rewards' ? 'border-violet-500 text-violet-400' : 'border-transparent text-slate-400 hover:text-white'
+            activeTab === 'rewards' ? 'border-violet-500 text-violet-400' : 'border-transparent text-slate-600 hover:text-slate-900'
           }`}
         >
           Redeem Rewards
@@ -242,7 +242,7 @@ export default function GamificationClient({
           <button
             onClick={() => setActiveTab('history')}
             className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-              activeTab === 'history' ? 'border-violet-500 text-violet-400' : 'border-transparent text-slate-400 hover:text-white'
+              activeTab === 'history' ? 'border-violet-500 text-violet-400' : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
             My Redemptions
@@ -254,7 +254,7 @@ export default function GamificationClient({
       {activeTab === 'challenges' && (
         <div className="space-y-6">
           <div className="flex justify-between items-center">
-            <h3 className="text-sm font-semibold tracking-wide uppercase text-slate-400">Sustainability Challenges</h3>
+            <h3 className="text-sm font-semibold tracking-wide uppercase text-slate-600">Sustainability Challenges</h3>
             {session.role === 'ADMIN' && (
               <button
                 onClick={() => setChallengeModalOpen(true)}
@@ -268,8 +268,8 @@ export default function GamificationClient({
 
           {/* Manager approval queue inside challenges view */}
           {showReviewQueue && pendingChallengeReviews.length > 0 && (
-            <Card className="bg-slate-900 border-slate-800 text-white mb-6">
-              <CardHeader className="pb-2 border-b border-slate-800">
+            <Card className="bg-white border-slate-200 text-slate-900 mb-6">
+              <CardHeader className="pb-2 border-b border-slate-200">
                 <CardTitle className="text-xs font-bold uppercase tracking-wider text-rose-400 flex items-center gap-2">
                   <Flame className="w-4 h-4 text-rose-400 animate-pulse" />
                   Challenge Submissions Awaiting Approval ({pendingChallengeReviews.length})
@@ -278,19 +278,19 @@ export default function GamificationClient({
               <CardContent className="p-0">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="bg-slate-950/40 text-slate-400 border-b border-slate-800 font-semibold text-[10px]">
+                    <tr className="bg-white/80 text-slate-600 border-b border-slate-200 font-semibold text-[10px]">
                       <th className="p-3">Employee</th>
                       <th className="p-3">Challenge Title</th>
                       <th className="p-3">Evidence Submitted</th>
                       <th className="p-3 text-center">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60">
+                  <tbody className="divide-y divide-zinc-800/60">
                     {pendingChallengeReviews.map((part) => (
-                      <tr key={part.id} className="hover:bg-slate-850/20 text-slate-200">
+                      <tr key={part.id} className="hover:bg-slate-50/20 text-slate-800">
                         <td className="p-3 font-semibold">{part.employee.name}</td>
                         <td className="p-3 font-medium text-violet-400">{part.challenge.title}</td>
-                        <td className="p-3 text-slate-400 max-w-xs truncate">
+                        <td className="p-3 text-slate-600 max-w-xs truncate">
                           {part.proofUrl ? (
                             <a href={part.proofUrl} target="_blank" rel="noopener noreferrer" className="text-violet-400 hover:underline flex items-center gap-1">
                               View Evidence
@@ -319,7 +319,7 @@ export default function GamificationClient({
               const isDeadlinePassed = new Date(c.deadline) < new Date();
 
               return (
-                <div key={c.id} className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md flex flex-col justify-between hover:border-slate-700 transition-all">
+                <div key={c.id} className="p-5 rounded-2xl bg-slate-50 border border-slate-200 backdrop-blur-md flex flex-col justify-between hover:border-zinc-700 transition-all">
                   <div>
                     <div className="flex justify-between items-start">
                       <BadgeUi className={`${
@@ -334,8 +334,8 @@ export default function GamificationClient({
                       </span>
                     </div>
 
-                    <h3 className="text-sm font-bold text-white mt-3 leading-snug">{c.title}</h3>
-                    <p className="text-xs text-slate-400 mt-2 line-clamp-3 leading-relaxed">
+                    <h3 className="text-sm font-bold text-slate-900 mt-3 leading-snug">{c.title}</h3>
+                    <p className="text-xs text-slate-600 mt-2 line-clamp-3 leading-relaxed">
                       {c.description}
                     </p>
 
@@ -344,13 +344,13 @@ export default function GamificationClient({
                         <Zap className="w-3.5 h-3.5 fill-violet-400/20 text-violet-400" />
                         +{c.xpReward} XP
                       </span>
-                      <span>Till {new Date(c.deadline).toLocaleDateString()}</span>
+                      <span>Till {new Date(c.deadline).toLocaleDateString('en-US')}</span>
                     </div>
                   </div>
 
                   {/* Participation status / controls */}
                   {isEmployee && (
-                    <div className="mt-5 pt-4 border-t border-slate-800/60">
+                    <div className="mt-5 pt-4 border-t border-slate-200">
                       {!part ? (
                         <button
                           onClick={() => handleJoinChallenge(c.id)}
@@ -362,7 +362,7 @@ export default function GamificationClient({
                       ) : (
                         <div className="space-y-3">
                           <div className="flex justify-between items-center text-xs">
-                            <span className="text-slate-400">Progress: {part.progress}%</span>
+                            <span className="text-slate-600">Progress: {part.progress}%</span>
                             <BadgeUi className={`${
                               part.approvalStatus === 'APPROVED' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
                               part.approvalStatus === 'REJECTED' ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' :
@@ -371,7 +371,7 @@ export default function GamificationClient({
                               {part.approvalStatus}
                             </BadgeUi>
                           </div>
-                          <Progress value={part.progress} className="h-1 bg-slate-950" />
+                          <Progress value={part.progress} className="h-1 bg-slate-50" />
 
                           {part.approvalStatus === 'PENDING' && part.progress < 100 && (
                             <div className="space-y-2 mt-2">
@@ -383,7 +383,7 @@ export default function GamificationClient({
                                   min="0"
                                   value={progressInput[part.id] || ''}
                                   onChange={(e) => setProgressInput({ ...progressInput, [part.id]: Number(e.target.value) })}
-                                  className="w-20 px-2 py-1.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-[11px] placeholder-slate-600 focus:outline-none"
+                                  className="w-20 px-2 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-[11px] placeholder-zinc-600 focus:outline-none"
                                 />
                                 {c.evidenceRequired && (
                                   <input
@@ -391,7 +391,7 @@ export default function GamificationClient({
                                     placeholder="Link to proof..."
                                     value={proofInput[part.id] || ''}
                                     onChange={(e) => setProofInput({ ...proofInput, [part.id]: e.target.value })}
-                                    className="flex-1 px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-[11px] placeholder-slate-600 focus:outline-none"
+                                    className="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-[11px] placeholder-zinc-600 focus:outline-none"
                                   />
                                 )}
                                 <button
@@ -420,20 +420,20 @@ export default function GamificationClient({
 
       {/* --- 2. LEADERBOARD TAB --- */}
       {activeTab === 'leaderboard' && (
-        <Card className="bg-slate-900 border-slate-800 text-white">
-          <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
-            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-400 flex items-center gap-2">
+        <Card className="bg-white border-slate-200 text-slate-900">
+          <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-600 flex items-center gap-2">
               <Trophy className="w-4.5 h-4.5 text-slate-500" />
               XP Leaderboard Ranking
             </CardTitle>
             
             {/* Department Filter */}
             <div className="flex items-center gap-2">
-              <Filter className="w-3.5 h-3.5 text-slate-400" />
+              <Filter className="w-3.5 h-3.5 text-slate-600" />
               <select
                 value={deptFilter}
                 onChange={(e) => setDeptFilter(e.target.value)}
-                className="p-1.5 px-3 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs"
+                className="p-1.5 px-3 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs"
               >
                 <option value="ALL">All Departments</option>
                 {departments.map((d) => (
@@ -445,7 +445,7 @@ export default function GamificationClient({
           <CardContent className="p-0 overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-slate-950/40 text-slate-400 border-b border-slate-800 font-semibold text-[10px] uppercase">
+                <tr className="bg-white/80 text-slate-600 border-b border-slate-200 font-semibold text-[10px] uppercase">
                   <th className="p-4 text-center w-16">Rank</th>
                   <th className="p-4">Employee</th>
                   <th className="p-4">Department</th>
@@ -453,21 +453,21 @@ export default function GamificationClient({
                   <th className="p-4 text-right pr-6">Level / Total XP</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-zinc-800/60">
                 {filteredLeaderboard.map((user, idx) => (
-                  <tr key={user.id} className={`hover:bg-slate-850/25 transition-all text-slate-200 ${
+                  <tr key={user.id} className={`hover:bg-slate-50/25 transition-all text-slate-800 ${
                     user.id === session.userId ? 'bg-violet-950/10 border-l-2 border-violet-500' : ''
                   }`}>
-                    <td className="p-4 text-center font-extrabold text-slate-400">
+                    <td className="p-4 text-center font-extrabold text-slate-600">
                       {idx + 1 === 1 ? '🥇' : idx + 1 === 2 ? '🥈' : idx + 1 === 3 ? '🥉' : idx + 1}
                     </td>
                     <td className="p-4 font-semibold flex items-center gap-2">
-                      <div className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-950 border border-slate-850 text-[10px] text-slate-400">
+                      <div className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-50 border border-slate-100 text-[10px] text-slate-600">
                         {user.name.slice(0, 2)}
                       </div>
                       {user.name} {user.id === session.userId && <span className="text-[10px] text-violet-400 font-bold">(You)</span>}
                     </td>
-                    <td className="p-4 text-slate-400">{user.department?.name || 'Corporate'}</td>
+                    <td className="p-4 text-slate-600">{user.department?.name || 'Corporate'}</td>
                     <td className="p-4 text-right text-amber-400 font-bold">{user.totalPoints} pts</td>
                     <td className="p-4 text-right pr-6 font-extrabold text-violet-400">{user.totalXP} XP</td>
                   </tr>
@@ -482,7 +482,7 @@ export default function GamificationClient({
       {activeTab === 'rewards' && (
         <div className="space-y-6">
           <div className="flex justify-between items-center">
-            <h3 className="text-sm font-semibold tracking-wide uppercase text-slate-400">Rewards Catalog</h3>
+            <h3 className="text-sm font-semibold tracking-wide uppercase text-slate-600">Rewards Catalog</h3>
             {session.role === 'ADMIN' && (
               <button
                 onClick={() => setRewardModalOpen(true)}
@@ -500,7 +500,7 @@ export default function GamificationClient({
               const insPoints = currentUserStats.totalPoints < rew.pointsRequired;
               
               return (
-                <div key={rew.id} className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md flex flex-col justify-between hover:border-slate-700 transition-all">
+                <div key={rew.id} className="p-5 rounded-2xl bg-slate-50 border border-slate-200 backdrop-blur-md flex flex-col justify-between hover:border-zinc-700 transition-all">
                   <div>
                     <div className="flex justify-between items-center">
                       <BadgeUi className={`${
@@ -508,14 +508,14 @@ export default function GamificationClient({
                       } text-[9px] border font-bold uppercase`}>
                         {outOfStock ? 'Out of stock' : `${rew.stock} available`}
                       </BadgeUi>
-                      <div className="flex items-center gap-1.5 text-xs font-extrabold text-amber-400 bg-slate-950 border border-slate-850 px-2 py-0.5 rounded-lg">
+                      <div className="flex items-center gap-1.5 text-xs font-extrabold text-amber-400 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-lg">
                         <Star className="w-3.5 h-3.5 fill-amber-400/20" />
                         {rew.pointsRequired} pts
                       </div>
                     </div>
 
-                    <h3 className="text-sm font-bold text-white mt-3 leading-snug">{rew.name}</h3>
-                    <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                    <h3 className="text-sm font-bold text-slate-900 mt-3 leading-snug">{rew.name}</h3>
+                    <p className="text-xs text-slate-600 mt-2 leading-relaxed">
                       {rew.description}
                     </p>
                   </div>
@@ -524,7 +524,7 @@ export default function GamificationClient({
                     <button
                       onClick={() => handleRedeemReward(rew.id)}
                       disabled={outOfStock || insPoints}
-                      className="w-full flex items-center justify-center gap-1.5 mt-5 py-2.5 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 disabled:from-slate-850 disabled:to-slate-850 text-white text-xs font-semibold shadow-md shadow-amber-500/10 transition-all disabled:opacity-50"
+                      className="w-full flex items-center justify-center gap-1.5 mt-5 py-2.5 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 disabled:from-zinc-850 disabled:to-zinc-850 text-slate-900 text-xs font-semibold shadow-md shadow-amber-500/10 transition-all disabled:opacity-50"
                     >
                       <ShoppingBag className="w-4 h-4" />
                       Redeem Reward
@@ -539,9 +539,9 @@ export default function GamificationClient({
 
       {/* --- 4. REDEMPTIONS HISTORY TAB --- */}
       {activeTab === 'history' && isEmployee && (
-        <Card className="bg-slate-900 border-slate-800 text-white">
-          <CardHeader className="border-b border-slate-800 pb-4">
-            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-400 flex items-center gap-2">
+        <Card className="bg-white border-slate-200 text-slate-900">
+          <CardHeader className="border-b border-slate-200 pb-4">
+            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-600 flex items-center gap-2">
               <Gift className="w-4.5 h-4.5 text-slate-500" />
               Redemption History Log
             </CardTitle>
@@ -549,19 +549,19 @@ export default function GamificationClient({
           <CardContent className="p-0 overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-slate-950/40 text-slate-400 border-b border-slate-800 font-semibold uppercase text-[10px]">
+                <tr className="bg-white/80 text-slate-600 border-b border-slate-200 font-semibold uppercase text-[10px]">
                   <th className="p-4">Redeemed Item</th>
                   <th className="p-4">Points Deducted</th>
                   <th className="p-4">Redemption Date</th>
                   <th className="p-4 text-center">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-zinc-800/60">
                 {redemptions.map((red) => (
-                  <tr key={red.id} className="hover:bg-slate-800/25 transition-all text-slate-200">
+                  <tr key={red.id} className="hover:bg-slate-50 transition-all text-slate-800">
                     <td className="p-4 font-semibold">{red.reward.name}</td>
                     <td className="p-4 font-bold text-rose-400">-{red.pointsDeducted} pts</td>
-                    <td className="p-4 text-slate-400">{new Date(red.redeemedAt).toLocaleDateString()}</td>
+                    <td className="p-4 text-slate-600">{new Date(red.redeemedAt).toLocaleDateString('en-US')}</td>
                     <td className="p-4 text-center">
                       <BadgeUi className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[9px] border font-bold uppercase">
                         {red.status}
@@ -585,59 +585,59 @@ export default function GamificationClient({
       {/* --- ADD CHALLENGE MODAL --- */}
       {challengeModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-sans">
-          <div className="w-full max-w-md p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Add Challenge</h3>
+          <div className="w-full max-w-md p-6 rounded-2xl bg-white border border-slate-200 shadow-2xl">
+            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">Add Challenge</h3>
             <form onSubmit={handleCreateChallenge} className="space-y-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Challenge Title</label>
-                <input name="title" type="text" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. Clean commutes only" />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Challenge Title</label>
+                <input name="title" type="text" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. Clean commutes only" />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Description</label>
-                <textarea name="description" required rows={3} className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs resize-none" placeholder="e.g. Walk or bicycle to work for 5 days. Must upload photos or logs of routes..." />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Description</label>
+                <textarea name="description" required rows={3} className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs resize-none" placeholder="e.g. Walk or bicycle to work for 5 days. Must upload photos or logs of routes..." />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Difficulty</label>
-                  <select name="difficulty" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs">
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Difficulty</label>
+                  <select name="difficulty" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs">
                     <option value="EASY">Easy</option>
                     <option value="MEDIUM">Medium</option>
                     <option value="HARD">Hard</option>
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">XP Reward</label>
-                  <input name="xpReward" type="number" required defaultValue="100" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" />
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">XP Reward</label>
+                  <input name="xpReward" type="number" required defaultValue="100" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Category</label>
-                  <select name="categoryId" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs">
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Category</label>
+                  <select name="categoryId" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs">
                     {categories.map((c) => (
                       <option key={c.id} value={c.id}>{c.name}</option>
                     ))}
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Deadline</label>
-                  <input name="deadline" type="date" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" />
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Deadline</label>
+                  <input name="deadline" type="date" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" />
                 </div>
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Evidence Required</label>
-                <select name="evidenceRequired" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs">
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Evidence Required</label>
+                <select name="evidenceRequired" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs">
                   <option value="false">No (Honest System)</option>
                   <option value="true">Yes (Proof link required)</option>
                 </select>
               </div>
 
               <div className="flex justify-end gap-3 mt-6">
-                <button type="button" onClick={() => setChallengeModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-850 hover:bg-slate-800 text-xs font-semibold text-slate-400 transition-all">Cancel</button>
+                <button type="button" onClick={() => setChallengeModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-100 hover:bg-slate-100 text-xs font-semibold text-slate-600 transition-all">Cancel</button>
                 <button type="submit" disabled={formLoading} className="px-4 py-2 rounded-lg bg-violet-500 hover:bg-violet-600 text-xs font-semibold text-white flex items-center gap-1.5 transition-all">
                   {formLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   Save Challenge
@@ -651,32 +651,32 @@ export default function GamificationClient({
       {/* --- ADD REWARD MODAL --- */}
       {rewardModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-sans">
-          <div className="w-full max-w-md p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Add Reward Catalog</h3>
+          <div className="w-full max-w-md p-6 rounded-2xl bg-white border border-slate-200 shadow-2xl">
+            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">Add Reward Catalog</h3>
             <form onSubmit={handleCreateReward} className="space-y-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Reward Name</label>
-                <input name="name" type="text" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. Recycled Notebook and Pen set" />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Reward Name</label>
+                <input name="name" type="text" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. Recycled Notebook and Pen set" />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Description</label>
-                <textarea name="description" required rows={3} className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs resize-none" placeholder="e.g. Crafted completely from post-consumer waste, branded with EcoSphere..." />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Description</label>
+                <textarea name="description" required rows={3} className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs resize-none" placeholder="e.g. Crafted completely from post-consumer waste, branded with EcoSphere..." />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Points Required</label>
-                  <input name="pointsRequired" type="number" required defaultValue="100" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" />
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Points Required</label>
+                  <input name="pointsRequired" type="number" required defaultValue="100" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Starting Stock</label>
-                  <input name="stock" type="number" required defaultValue="10" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" />
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Starting Stock</label>
+                  <input name="stock" type="number" required defaultValue="10" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" />
                 </div>
               </div>
 
               <div className="flex justify-end gap-3 mt-6">
-                <button type="button" onClick={() => setRewardModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-850 hover:bg-slate-800 text-xs font-semibold text-slate-400 transition-all">Cancel</button>
+                <button type="button" onClick={() => setRewardModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-100 hover:bg-slate-100 text-xs font-semibold text-slate-600 transition-all">Cancel</button>
                 <button type="submit" disabled={formLoading} className="px-4 py-2 rounded-lg bg-violet-500 hover:bg-violet-600 text-xs font-semibold text-white flex items-center gap-1.5 transition-all">
                   {formLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   Save Reward

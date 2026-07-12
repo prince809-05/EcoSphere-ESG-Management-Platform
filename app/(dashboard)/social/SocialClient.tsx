@@ -134,16 +134,16 @@ export default function SocialClient({
             <Heart className="w-6 h-6 text-amber-400 fill-amber-400/20" />
             Social (CSR) Module
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Engage in Corporate Social Responsibility (CSR), log participation, and award volunteer rewards.</p>
+          <p className="text-xs text-slate-600 mt-1">Engage in Corporate Social Responsibility (CSR), log participation, and award volunteer rewards.</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-800">
+      <div className="flex border-b border-slate-200">
         <button
           onClick={() => setActiveTab('activities')}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-            activeTab === 'activities' ? 'border-amber-500 text-amber-400' : 'border-transparent text-slate-400 hover:text-white'
+            activeTab === 'activities' ? 'border-amber-500 text-amber-400' : 'border-transparent text-slate-600 hover:text-slate-900'
           }`}
         >
           Activities Catalog
@@ -152,12 +152,12 @@ export default function SocialClient({
           <button
             onClick={() => setActiveTab('queue')}
             className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all relative ${
-              activeTab === 'queue' ? 'border-amber-500 text-amber-400' : 'border-transparent text-slate-400 hover:text-white'
+              activeTab === 'queue' ? 'border-amber-500 text-amber-400' : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
             Approval Queue
             {pendingParticipations.length > 0 && (
-              <span className="absolute -top-1 -right-1 px-1.5 py-0.5 rounded-full bg-rose-500 text-white text-[9px] font-extrabold animate-pulse">
+              <span className="absolute -top-1 -right-1 px-1.5 py-0.5 rounded-full bg-rose-500 text-slate-900 text-[9px] font-extrabold animate-pulse">
                 {pendingParticipations.length}
               </span>
             )}
@@ -167,7 +167,7 @@ export default function SocialClient({
           <button
             onClick={() => setActiveTab('history')}
             className={`px-4 py-2.5 text-xs font-bold border-b-2 transition-all ${
-              activeTab === 'history' ? 'border-amber-500 text-amber-400' : 'border-transparent text-slate-400 hover:text-white'
+              activeTab === 'history' ? 'border-amber-500 text-amber-400' : 'border-transparent text-slate-600 hover:text-slate-900'
             }`}
           >
             My CSR History
@@ -196,7 +196,7 @@ export default function SocialClient({
               const isDeadlinePassed = new Date(act.deadline) < new Date();
 
               return (
-                <div key={act.id} className="flex flex-col justify-between p-5 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-md relative group hover:border-slate-700 transition-all">
+                <div key={act.id} className="flex flex-col justify-between p-5 rounded-2xl bg-slate-50 border border-slate-200 backdrop-blur-md relative group hover:border-zinc-700 transition-all">
                   <div>
                     <div className="flex justify-between items-start gap-4">
                       <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
@@ -212,8 +212,8 @@ export default function SocialClient({
                         </button>
                       )}
                     </div>
-                    <h3 className="text-sm font-bold text-white mt-2 leading-snug">{act.title}</h3>
-                    <p className="text-xs text-slate-400 mt-2 line-clamp-3 leading-relaxed">
+                    <h3 className="text-sm font-bold text-slate-900 mt-2 leading-snug">{act.title}</h3>
+                    <p className="text-xs text-slate-600 mt-2 line-clamp-3 leading-relaxed">
                       {act.description}
                     </p>
 
@@ -221,13 +221,13 @@ export default function SocialClient({
                     <div className="flex gap-4 mt-4 text-[10px] font-bold">
                       <span className="text-amber-400">+{act.pointsReward} Points</span>
                       <span className="text-violet-400">+{act.xpReward} XP</span>
-                      <span className="text-slate-500">Till {new Date(act.deadline).toLocaleDateString()}</span>
+                      <span className="text-slate-500">Till {new Date(act.deadline).toLocaleDateString('en-US')}</span>
                     </div>
                   </div>
 
                   {/* Employee actions block */}
                   {isEmployee && (
-                    <div className="mt-5 pt-4 border-t border-slate-800/60">
+                    <div className="mt-5 pt-4 border-t border-slate-200">
                       {!part ? (
                         <button
                           onClick={() => handleJoin(act.id)}
@@ -240,7 +240,7 @@ export default function SocialClient({
                       ) : (
                         <div className="space-y-3">
                           <div className="flex justify-between items-center text-xs">
-                            <span className="text-slate-400">Registration status:</span>
+                            <span className="text-slate-600">Registration status:</span>
                             <Badge className={`${
                               part.approvalStatus === 'APPROVED' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
                               part.approvalStatus === 'REJECTED' ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' :
@@ -252,14 +252,14 @@ export default function SocialClient({
 
                           {part.approvalStatus === 'PENDING' && !part.proofUrl && (
                             <div className="space-y-2">
-                              <label className="text-[10px] text-slate-400 font-semibold uppercase block">Submit Proof (URL or description)</label>
+                              <label className="text-[10px] text-slate-600 font-semibold uppercase block">Submit Proof (URL or description)</label>
                               <div className="flex gap-2">
                                 <input
                                   type="text"
                                   placeholder="Link to photos or write description..."
                                   value={proofInputs[part.id] || ''}
                                   onChange={(e) => setProofInputs({ ...proofInputs, [part.id]: e.target.value })}
-                                  className="flex-1 px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-[11px] placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                                  className="flex-1 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-[11px] placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-amber-500"
                                 />
                                 <button
                                   onClick={() => handleUploadProof(part.id)}
@@ -290,9 +290,9 @@ export default function SocialClient({
 
       {/* --- 2. MANAGER APPROVAL QUEUE TAB --- */}
       {activeTab === 'queue' && showQueue && (
-        <Card className="bg-slate-900 border-slate-800 text-white">
-          <CardHeader className="border-b border-slate-800 pb-4">
-            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-400 flex items-center gap-2">
+        <Card className="bg-white border-slate-200 text-slate-900">
+          <CardHeader className="border-b border-slate-200 pb-4">
+            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-600 flex items-center gap-2">
               <FileCheck className="w-4.5 h-4.5 text-slate-500" />
               Pending Approvals Queue
             </CardTitle>
@@ -300,7 +300,7 @@ export default function SocialClient({
           <CardContent className="p-0 overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-slate-950/40 text-slate-400 border-b border-slate-800 font-semibold">
+                <tr className="bg-white/80 text-slate-600 border-b border-slate-200 font-semibold">
                   <th className="p-4">Employee</th>
                   <th className="p-4">Department</th>
                   <th className="p-4">Activity Title</th>
@@ -308,13 +308,13 @@ export default function SocialClient({
                   <th className="p-4 text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-zinc-800/60">
                 {pendingParticipations.map((part) => (
-                  <tr key={part.id} className="hover:bg-slate-800/25 transition-all text-slate-200">
+                  <tr key={part.id} className="hover:bg-slate-50 transition-all text-slate-800">
                     <td className="p-4 font-semibold">{part.employee.name}</td>
                     <td className="p-4">{part.employee.department?.name || 'Corporate'}</td>
                     <td className="p-4 font-medium text-amber-400">{part.activity.title}</td>
-                    <td className="p-4 text-slate-400 max-w-xs truncate">
+                    <td className="p-4 text-slate-600 max-w-xs truncate">
                       {part.proofUrl && part.proofUrl.startsWith('http') ? (
                         <a
                           href={part.proofUrl}
@@ -364,9 +364,9 @@ export default function SocialClient({
 
       {/* --- 3. EMPLOYEE HISTORY TAB --- */}
       {activeTab === 'history' && isEmployee && (
-        <Card className="bg-slate-900 border-slate-800 text-white">
-          <CardHeader className="border-b border-slate-800 pb-4">
-            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-400 flex items-center gap-2">
+        <Card className="bg-white border-slate-200 text-slate-900">
+          <CardHeader className="border-b border-slate-200 pb-4">
+            <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-600 flex items-center gap-2">
               <Clock className="w-4.5 h-4.5 text-slate-500" />
               My CSR Activities History
             </CardTitle>
@@ -374,20 +374,20 @@ export default function SocialClient({
           <CardContent className="p-0 overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-slate-950/40 text-slate-400 border-b border-slate-800 font-semibold">
+                <tr className="bg-white/80 text-slate-600 border-b border-slate-200 font-semibold">
                   <th className="p-4">Activity Title</th>
                   <th className="p-4">Points Earned</th>
                   <th className="p-4">Completion Date</th>
                   <th className="p-4 text-center">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-zinc-800/60">
                 {myParticipations.map((part) => (
-                  <tr key={part.id} className="hover:bg-slate-800/25 transition-all text-slate-200">
+                  <tr key={part.id} className="hover:bg-slate-50 transition-all text-slate-800">
                     <td className="p-4 font-semibold">{part.activity.title}</td>
                     <td className="p-4 font-bold text-amber-400">+{part.pointsEarned} pts</td>
-                    <td className="p-4 text-slate-400">
-                      {part.completedAt ? new Date(part.completedAt).toLocaleDateString() : 'N/A'}
+                    <td className="p-4 text-slate-600">
+                      {part.completedAt ? new Date(part.completedAt).toLocaleDateString('en-US') : 'N/A'}
                     </td>
                     <td className="p-4 text-center">
                       <Badge className={`${
@@ -416,47 +416,47 @@ export default function SocialClient({
       {/* --- ADD CSR ACTIVITY MODAL --- */}
       {activityModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-sans">
-          <div className="w-full max-w-md p-6 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Add CSR Activity</h3>
+          <div className="w-full max-w-md p-6 rounded-2xl bg-white border border-slate-200 shadow-2xl">
+            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">Add CSR Activity</h3>
             <form onSubmit={handleCreateActivity} className="space-y-4">
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Activity Title</label>
-                <input name="title" type="text" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" placeholder="e.g. Annual Reforestation drive" />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Activity Title</label>
+                <input name="title" type="text" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" placeholder="e.g. Annual Reforestation drive" />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-semibold text-slate-400 uppercase">Description</label>
-                <textarea name="description" required rows={3} className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs resize-none" placeholder="e.g. Join the manufacturing and logistics departments to plant over 500 saplings in the local forest belt..." />
+                <label className="text-[10px] font-semibold text-slate-600 uppercase">Description</label>
+                <textarea name="description" required rows={3} className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs resize-none" placeholder="e.g. Join the manufacturing and logistics departments to plant over 500 saplings in the local forest belt..." />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Points Reward</label>
-                  <input name="pointsReward" type="number" required defaultValue="100" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" />
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Points Reward</label>
+                  <input name="pointsReward" type="number" required defaultValue="100" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">XP Reward</label>
-                  <input name="xpReward" type="number" required defaultValue="150" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" />
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">XP Reward</label>
+                  <input name="xpReward" type="number" required defaultValue="150" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Category</label>
-                  <select name="categoryId" className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs">
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Category</label>
+                  <select name="categoryId" className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs">
                     {categories.map((c) => (
                       <option key={c.id} value={c.id}>{c.name}</option>
                     ))}
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-semibold text-slate-400 uppercase">Deadline</label>
-                  <input name="deadline" type="date" required className="w-full p-2.5 rounded-lg border border-slate-800 bg-slate-950 text-white text-xs" />
+                  <label className="text-[10px] font-semibold text-slate-600 uppercase">Deadline</label>
+                  <input name="deadline" type="date" required className="w-full p-2.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-900 text-xs" />
                 </div>
               </div>
 
               <div className="flex justify-end gap-3 mt-6">
-                <button type="button" onClick={() => setActivityModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-850 hover:bg-slate-800 text-xs font-semibold text-slate-400 transition-all">Cancel</button>
+                <button type="button" onClick={() => setActivityModalOpen(false)} className="px-4 py-2 rounded-lg border border-slate-100 hover:bg-slate-100 text-xs font-semibold text-slate-600 transition-all">Cancel</button>
                 <button type="submit" disabled={formLoading} className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-xs font-semibold text-white flex items-center gap-1.5 transition-all">
                   {formLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   Save Activity

@@ -101,6 +101,14 @@ async function main() {
     data: { email: 'manager.log@ecosphere.com', passwordHash, name: 'Luis Logistics', role: Role.MANAGER, departmentId: deptLog.id, totalXP: 180, totalPoints: 200 }
   });
 
+  const dataEntry1 = await prisma.user.create({
+    data: { email: 'data.entry1@ecosphere.com', passwordHash, name: 'Dana Entry', role: Role.MANAGER, departmentId: deptCorp.id, totalXP: 50, totalPoints: 50 }
+  });
+
+  const dataEntry2 = await prisma.user.create({
+    data: { email: 'data.entry2@ecosphere.com', passwordHash, name: 'Dave Entry', role: Role.MANAGER, departmentId: deptMfg.id, totalXP: 40, totalPoints: 40 }
+  });
+
   const auditor = await prisma.user.create({
     data: { email: 'auditor@ecosphere.com', passwordHash, name: 'Audrey Auditor', role: Role.AUDITOR, totalXP: 50, totalPoints: 50 }
   });

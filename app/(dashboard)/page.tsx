@@ -5,7 +5,6 @@ import { getDashboardInsights } from '@/lib/ai/insights';
 import KpiCard from '@/components/KpiCard';
 import DashboardCharts from '@/components/DashboardCharts';
 import DashboardInsights from '@/components/DashboardInsights';
-import ChatWidget from '@/components/ChatWidget';
 import Link from 'next/link';
 import { 
   Leaf, 
@@ -126,16 +125,16 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-8 pb-12 font-sans relative">
       {/* Welcome banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 rounded-2xl border border-slate-800 bg-slate-900/30 backdrop-blur-sm relative overflow-hidden">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 rounded-2xl border border-slate-200 bg-white/30 backdrop-blur-sm relative overflow-hidden">
         <div className="absolute top-[-50%] right-[-10%] w-[40%] h-[150%] rounded-full bg-emerald-500/5 blur-[80px] pointer-events-none" />
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+          <h1 className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
             Welcome back, {session?.name}!
             <Sparkles className="w-5 h-5 text-amber-400 animate-bounce" />
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Here is your organization&apos;s ESG performance and carbon footprint overview.</p>
+          <p className="text-xs text-slate-600 mt-1">Here is your organization&apos;s ESG performance and carbon footprint overview.</p>
         </div>
-        <div className="flex items-center gap-2 text-xs text-slate-400 font-semibold px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800/80">
+        <div className="flex items-center gap-2 text-xs text-slate-600 font-semibold px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200/80">
           <Activity className="w-3.5 h-3.5 text-emerald-400" />
           EcoSphere Status: Active
         </div>
@@ -185,9 +184,9 @@ export default async function DashboardPage() {
       <DashboardCharts trendData={trendData} rankData={rankData} />
 
       {/* Department ESG Rankings Card */}
-      <Card className="bg-slate-900 border-slate-800 text-white shadow-xl">
-        <CardHeader className="pb-4 border-b border-slate-800/80 flex flex-row items-center justify-between">
-          <CardTitle className="text-xs font-bold tracking-wider uppercase text-slate-400 flex items-center gap-2">
+      <Card className="bg-white border-slate-200 text-slate-900 shadow-xl">
+        <CardHeader className="pb-4 border-b border-slate-200/80 flex flex-row items-center justify-between">
+          <CardTitle className="text-xs font-bold tracking-wider uppercase text-slate-600 flex items-center gap-2">
             <Trophy className="w-4 h-4 text-amber-500" />
             Department ESG Rankings
           </CardTitle>
@@ -196,7 +195,7 @@ export default async function DashboardPage() {
         <CardContent className="p-0 overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-slate-950/40 text-slate-400 border-b border-slate-800 font-semibold">
+              <tr className="bg-white/80 text-slate-600 border-b border-slate-200 font-semibold">
                 <th className="p-4 w-16 text-center">Rank</th>
                 <th className="p-4">Department</th>
                 <th className="p-4 text-center">E-Score</th>
@@ -206,23 +205,23 @@ export default async function DashboardPage() {
                 <th className="p-4 text-right">Overall Score</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-zinc-800/60">
               {sortedDepartments.map((dept, idx) => {
                 const isTop = idx === 0;
                 return (
-                  <tr key={dept.id} className="hover:bg-slate-800/25 transition-all text-slate-200">
+                  <tr key={dept.id} className="hover:bg-slate-50 transition-all text-slate-800">
                     <td className="p-4 text-center">
                       <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full font-bold text-xs ${
                         idx === 0 ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30' :
-                        idx === 1 ? 'bg-slate-350/15 text-slate-350 border border-slate-400/30' :
+                        idx === 1 ? 'bg-zinc-350/15 text-zinc-350 border border-zinc-400/30' :
                         idx === 2 ? 'bg-amber-700/15 text-amber-600 border border-amber-800/30' :
-                        'bg-slate-950 text-slate-500'
+                        'bg-slate-50 text-slate-500'
                       }`}>
                         {idx + 1}
                       </span>
                     </td>
                     <td className="p-4">
-                      <div className="font-semibold text-white flex items-center gap-2">
+                      <div className="font-semibold text-slate-900 flex items-center gap-2">
                         {dept.name}
                         {isTop && <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />}
                       </div>
@@ -239,11 +238,11 @@ export default async function DashboardPage() {
                     </td>
                     <td className="p-4">
                       <div className="flex items-center gap-2 max-w-[140px] w-full">
-                        <Progress value={dept.totalScore} className="h-1.5 bg-slate-950" />
+                        <Progress value={dept.totalScore} className="h-1.5 bg-slate-50" />
                         <span className="text-[10px] text-slate-500">{dept.totalScore.toFixed(0)}%</span>
                       </div>
                     </td>
-                    <td className="p-4 text-right font-extrabold text-white text-sm">
+                    <td className="p-4 text-right font-extrabold text-slate-900 text-sm">
                       {dept.totalScore.toFixed(1)}
                     </td>
                   </tr>
@@ -262,47 +261,47 @@ export default async function DashboardPage() {
         {/* Quick Actions & Recent Activity Feed */}
         <div className="space-y-6">
           {/* Quick Actions */}
-          <div className="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-md">
-            <h3 className="text-sm font-semibold tracking-wide uppercase text-slate-400 mb-4">
+          <div className="p-6 rounded-2xl border border-slate-200 bg-slate-50 backdrop-blur-md">
+            <h3 className="text-sm font-semibold tracking-wide uppercase text-slate-600 mb-4">
               Quick Actions
             </h3>
             <div className="space-y-3">
               <Link
                 href="/environmental"
-                className="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-850 hover:border-emerald-500/40 hover:bg-slate-900/40 text-xs font-semibold text-white transition-all group"
+                className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-emerald-500/40 hover:bg-white/60 text-xs font-semibold text-slate-700 hover:text-emerald-700 transition-all group"
               >
                 <span className="flex items-center gap-2.5">
                   <PlusCircle className="w-4.5 h-4.5 text-emerald-400" />
                   Log Carbon Data
                 </span>
-                <ArrowRight className="w-4 h-4 text-slate-500 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 text-slate-500 group-hover:tranzinc-x-1 transition-transform" />
               </Link>
               <Link
                 href="/gamification"
-                className="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-850 hover:border-violet-500/40 hover:bg-slate-900/40 text-xs font-semibold text-white transition-all group"
+                className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-violet-500/40 hover:bg-white/60 text-xs font-semibold text-slate-700 hover:text-emerald-700 transition-all group"
               >
                 <span className="flex items-center gap-2.5">
                   <Compass className="w-4.5 h-4.5 text-violet-400" />
                   Start Challenge
                 </span>
-                <ArrowRight className="w-4 h-4 text-slate-500 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 text-slate-500 group-hover:tranzinc-x-1 transition-transform" />
               </Link>
               <Link
                 href="/reports"
-                className="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-850 hover:border-rose-500/40 hover:bg-slate-900/40 text-xs font-semibold text-white transition-all group"
+                className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-rose-500/40 hover:bg-white/60 text-xs font-semibold text-slate-700 hover:text-emerald-700 transition-all group"
               >
                 <span className="flex items-center gap-2.5">
                   <FileText className="w-4.5 h-4.5 text-rose-400" />
                   View Reports
                 </span>
-                <ArrowRight className="w-4 h-4 text-slate-500 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 text-slate-500 group-hover:tranzinc-x-1 transition-transform" />
               </Link>
             </div>
           </div>
 
           {/* Recent Activity */}
-          <div className="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-md">
-            <h3 className="text-sm font-semibold tracking-wide uppercase text-slate-400 mb-4">
+          <div className="p-6 rounded-2xl border border-slate-200 bg-slate-50 backdrop-blur-md">
+            <h3 className="text-sm font-semibold tracking-wide uppercase text-slate-600 mb-4">
               Live Feed
             </h3>
             <div className="space-y-4">
@@ -310,8 +309,8 @@ export default async function DashboardPage() {
                 <div key={part.id} className="flex gap-3 text-xs">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 mt-1.5 shrink-0" />
                   <div>
-                    <p className="text-slate-200">
-                      <span className="font-semibold text-white">{part.employee.name}</span> completed{' '}
+                    <p className="text-slate-800">
+                      <span className="font-semibold text-slate-900">{part.employee.name}</span> completed{' '}
                       <span className="text-emerald-400 font-semibold">{part.activity.title}</span>
                     </p>
                     <span className="text-[10px] text-slate-500 mt-0.5 block">
@@ -328,8 +327,7 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* Floating AI Chat Assistant */}
-      <ChatWidget />
+      {/* Bottom padding for floating ChatWidget handled globally */}
     </div>
   );
 }

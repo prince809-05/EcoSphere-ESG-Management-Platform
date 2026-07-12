@@ -38,9 +38,9 @@ export default function DashboardCharts({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* 1. Emissions Trend Chart */}
-      <Card className="bg-slate-900 border-slate-800 text-white">
+      <Card className="bg-white border-slate-200 text-slate-900">
         <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-400">
+          <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-600">
             Emissions Trend (12 Months)
           </CardTitle>
         </CardHeader>
@@ -48,7 +48,7 @@ export default function DashboardCharts({
           <div className="h-80 w-full mt-4">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                 <XAxis dataKey="month" stroke="#64748b" fontSize={11} tickLine={false} />
                 <YAxis stroke="#64748b" fontSize={11} tickLine={false} />
                 <Tooltip
@@ -71,9 +71,9 @@ export default function DashboardCharts({
       </Card>
 
       {/* 2. Department Rankings Chart */}
-      <Card className="bg-slate-900 border-slate-800 text-white">
+      <Card className="bg-white border-slate-200 text-slate-900">
         <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-400">
+          <CardTitle className="text-sm font-semibold tracking-wide uppercase text-slate-600">
             Department ESG Score Comparison
           </CardTitle>
         </CardHeader>
@@ -81,7 +81,7 @@ export default function DashboardCharts({
           <div className="h-80 w-full mt-4">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={rankData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                 <XAxis dataKey="name" stroke="#64748b" fontSize={11} tickLine={false} />
                 <YAxis stroke="#64748b" fontSize={11} tickLine={false} />
                 <Tooltip
