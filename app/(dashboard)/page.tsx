@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { getDashboardInsights } from '@/lib/ai/insights';
 import KpiCard from '@/components/KpiCard';
 import DashboardCharts from '@/components/DashboardCharts';
+import DashboardInsights from '@/components/DashboardInsights';
 import ChatWidget from '@/components/ChatWidget';
 import Link from 'next/link';
 import { 
@@ -17,8 +18,11 @@ import {
   FileText,
   Sparkles,
   Zap,
-  Activity
+  Activity,
+  Trophy
 } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 export const revalidate = 0; // Fetch fresh data on load
 
@@ -79,13 +83,26 @@ export default async function DashboardPage() {
     }
   }
 
-  // 4. Department ranking chart data
-  const rankData = departments.map((d) => ({
+  // 4. Department ranking chart data & list rankings
+  const formattedDepts = departments.map((d) => ({
+    id: d.id,
+    name: d.name,
+    code: d.code,
+    employeeCount: d.employeeCount,
+    envScore: Number(d.envScore),
+    socialScore: Number(d.socialScore),
+    govScore: Number(d.govScore),
+    totalScore: Number(d.totalScore),
+  }));
+
+  const sortedDepartments = [...formattedDepts].sort((a, b) => b.totalScore - a.totalScore);
+
+  const rankData = formattedDepts.map((d) => ({
     name: d.code,
-    environmental: Number(d.envScore),
-    social: Number(d.socialScore),
-    governance: Number(d.govScore),
-    overall: Number(d.totalScore),
+    environmental: d.envScore,
+    social: d.socialScore,
+    governance: d.govScore,
+    overall: d.totalScore,
   }));
 
   // 5. Recent activity feed
@@ -167,35 +184,80 @@ export default async function DashboardPage() {
       {/* Charts Section */}
       <DashboardCharts trendData={trendData} rankData={rankData} />
 
+      {/* Department ESG Rankings Card */}
+      <Card className="bg-slate-900 border-slate-800 text-white shadow-xl">
+        <CardHeader className="pb-4 border-b border-slate-800/80 flex flex-row items-center justify-between">
+          <CardTitle className="text-xs font-bold tracking-wider uppercase text-slate-400 flex items-center gap-2">
+            <Trophy className="w-4 h-4 text-amber-500" />
+            Department ESG Rankings
+          </CardTitle>
+          <span className="text-[10px] text-slate-500 font-bold uppercase">Ranked by overall score</span>
+        </CardHeader>
+        <CardContent className="p-0 overflow-x-auto">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="bg-slate-950/40 text-slate-400 border-b border-slate-800 font-semibold">
+                <th className="p-4 w-16 text-center">Rank</th>
+                <th className="p-4">Department</th>
+                <th className="p-4 text-center">E-Score</th>
+                <th className="p-4 text-center">S-Score</th>
+                <th className="p-4 text-center">G-Score</th>
+                <th className="p-4">Performance Index</th>
+                <th className="p-4 text-right">Overall Score</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-800/60">
+              {sortedDepartments.map((dept, idx) => {
+                const isTop = idx === 0;
+                return (
+                  <tr key={dept.id} className="hover:bg-slate-800/25 transition-all text-slate-200">
+                    <td className="p-4 text-center">
+                      <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full font-bold text-xs ${
+                        idx === 0 ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30' :
+                        idx === 1 ? 'bg-slate-350/15 text-slate-350 border border-slate-400/30' :
+                        idx === 2 ? 'bg-amber-700/15 text-amber-600 border border-amber-800/30' :
+                        'bg-slate-950 text-slate-500'
+                      }`}>
+                        {idx + 1}
+                      </span>
+                    </td>
+                    <td className="p-4">
+                      <div className="font-semibold text-white flex items-center gap-2">
+                        {dept.name}
+                        {isTop && <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />}
+                      </div>
+                      <span className="text-[10px] text-slate-500 mt-0.5 block">{dept.code} • {dept.employeeCount} staff</span>
+                    </td>
+                    <td className="p-4 text-center">
+                      <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-550/20 text-emerald-400 font-bold">{dept.envScore.toFixed(1)}</span>
+                    </td>
+                    <td className="p-4 text-center">
+                      <span className="px-2 py-0.5 rounded bg-amber-500/10 border border-amber-550/20 text-amber-400 font-bold">{dept.socialScore.toFixed(1)}</span>
+                    </td>
+                    <td className="p-4 text-center">
+                      <span className="px-2 py-0.5 rounded bg-blue-500/10 border border-blue-550/20 text-blue-400 font-bold">{dept.govScore.toFixed(1)}</span>
+                    </td>
+                    <td className="p-4">
+                      <div className="flex items-center gap-2 max-w-[140px] w-full">
+                        <Progress value={dept.totalScore} className="h-1.5 bg-slate-950" />
+                        <span className="text-[10px] text-slate-500">{dept.totalScore.toFixed(0)}%</span>
+                      </div>
+                    </td>
+                    <td className="p-4 text-right font-extrabold text-white text-sm">
+                      {dept.totalScore.toFixed(1)}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
+
       {/* Dynamic AI Insights & Actions Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* AI Recommendations */}
-        <div className="lg:col-span-2 p-6 rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-md flex flex-col justify-between">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="p-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
-                <Sparkles className="w-4 h-4 text-emerald-400" />
-              </div>
-              <h3 className="text-sm font-semibold tracking-wide uppercase text-slate-400">
-                EcoSphere AI Insights
-              </h3>
-            </div>
-            <ul className="space-y-4">
-              {insights.map((insight, idx) => (
-                <li key={idx} className="flex gap-3 text-xs text-slate-200 leading-relaxed items-start">
-                  <span className="flex items-center justify-center w-5 h-5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold shrink-0 mt-0.5">
-                    {idx + 1}
-                  </span>
-                  <span>{insight}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="mt-6 pt-4 border-t border-slate-800/60 text-[10px] text-slate-500 flex items-center gap-1.5">
-            <Zap className="w-3 h-3 text-amber-500" />
-            AI advice updated 5m ago based on current department metrics
-          </div>
-        </div>
+        <DashboardInsights initialInsights={insights} />
 
         {/* Quick Actions & Recent Activity Feed */}
         <div className="space-y-6">

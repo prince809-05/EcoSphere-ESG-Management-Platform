@@ -99,6 +99,13 @@ export default async function EnvironmentalPage() {
     ...t,
     quantity: Number(t.quantity),
     calculatedCO2: Number(t.calculatedCO2),
+    department: {
+      ...t.department,
+      envScore: Number(t.department.envScore),
+      socialScore: Number(t.department.socialScore),
+      govScore: Number(t.department.govScore),
+      totalScore: Number(t.department.totalScore),
+    },
     emissionFactor: {
       ...t.emissionFactor,
       factorValue: Number(t.emissionFactor.factorValue),
@@ -114,6 +121,13 @@ export default async function EnvironmentalPage() {
     ...g,
     targetCO2: Number(g.targetCO2),
     currentCO2: Number(g.currentCO2),
+    department: {
+      ...g.department,
+      envScore: Number(g.department.envScore),
+      socialScore: Number(g.department.socialScore),
+      govScore: Number(g.department.govScore),
+      totalScore: Number(g.department.totalScore),
+    },
   }));
 
   return (

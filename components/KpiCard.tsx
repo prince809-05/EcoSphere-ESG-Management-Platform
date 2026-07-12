@@ -34,32 +34,39 @@ export default function KpiCard({
   const Icon = iconMap[iconName] || Leaf;
   return (
     <motion.div
-      whileHover={{ y: -4, scale: 1.01 }}
-      initial={{ opacity: 0, y: 15 }}
+      whileHover={{ y: -2 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.3 }}
       className="w-full"
     >
-      <Card className={`bg-slate-900/60 border-slate-800 backdrop-blur-md overflow-hidden relative group hover:shadow-lg ${borderClass} hover:border-slate-700 transition-all`}>
-        {/* Glow overlay */}
-        <div className={`absolute -right-4 -top-4 w-24 h-24 rounded-full blur-2xl opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none ${glowClass}`} />
+      <Card className="bg-slate-900/40 border-slate-850 backdrop-blur-md overflow-hidden relative group hover:border-slate-750 transition-all shadow-xl">
+        {/* Top colored accent line */}
+        <div className={`absolute top-0 left-0 right-0 h-[3px] ${
+          iconName === 'leaf' ? 'bg-emerald-500/80' :
+          iconName === 'users' ? 'bg-amber-500/80' :
+          iconName === 'scale' ? 'bg-blue-500/80' :
+          'bg-violet-500/80'
+        }`} />
         
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold tracking-wider text-slate-400 uppercase">{title}</span>
-            <div className={`p-2 rounded-lg bg-slate-950 border border-slate-800 ${colorClass}`}>
-              <Icon className="w-5 h-5" />
+            <span className="text-[10px] font-bold tracking-wider text-slate-500 uppercase">{title}</span>
+            <div className={`p-2 rounded-xl bg-slate-950/60 border border-slate-850 ${colorClass}`}>
+              <Icon className="w-4 h-4" />
             </div>
           </div>
 
-          <div className="mt-4 flex items-baseline gap-2">
+          <div className="mt-4 flex items-baseline gap-1.5">
             <span className="text-3xl font-extrabold tracking-tight text-white">
               {value.toFixed(1)}
             </span>
             <span className="text-[10px] text-slate-500 font-bold">/ 100</span>
           </div>
 
-          <p className="text-xs text-slate-400 mt-2 font-medium">{description}</p>
+          <p className="mt-3 text-[10px] leading-relaxed text-slate-400 group-hover:text-slate-300 transition-colors">
+            {description}
+          </p>
         </CardContent>
       </Card>
     </motion.div>
