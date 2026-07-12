@@ -2,6 +2,7 @@ import React from 'react';
 import { getSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { getDashboardInsights } from '@/lib/ai/insights';
+import { connection } from 'next/server';
 import KpiCard from '@/components/KpiCard';
 import DashboardCharts from '@/components/DashboardCharts';
 import DashboardInsights from '@/components/DashboardInsights';
@@ -27,6 +28,8 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 export const revalidate = 0; // Fetch fresh data on load
 
 export default async function DashboardPage() {
+  await connection();
+
   const session = await getSession();
 
   // 1. Fetch departments to calculate company-wide scores

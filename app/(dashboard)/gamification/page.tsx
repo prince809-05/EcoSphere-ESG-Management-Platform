@@ -2,11 +2,14 @@ import React from 'react';
 import { getSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { redirect } from 'next/navigation';
+import { connection } from 'next/server';
 import GamificationClient from './GamificationClient';
 
 export const revalidate = 0; // Fetch fresh data on load
 
 export default async function GamificationPage() {
+  await connection();
+
   const session = await getSession();
   if (!session) {
     redirect('/login');
